@@ -6,7 +6,7 @@
         <text class="count" if="{{ pending === 0 }}" >&#x5168;&#x90E8;&#x5B8C;&#x6210;</text>
     </div>
     <list class="todo-list" ref="list">
-        <list-item class="item" for="{{ (idx, it) in view }}" @click="onTap(it.id)" grab:longpress="onLong(it.id)">
+        <list-item class="item" for="{{ (idx, it) in view }}" @click="onTap(it.id)" @longpress="onLong(it.id)" onlongpress="onLong(it.id)">
             <div class="item-bg">
                 <div class="box" if="{{ !it.d && !it.fold }}"></div>
                 <div class="box box-on" if="{{ it.d === 1 }}"><text class="box-mark">&#x2713;</text></div>

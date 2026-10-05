@@ -16,10 +16,10 @@ export default {
         msg: '',
         kbText: '',
         previewText: '',
-        _k: '',
-        _m: '',
-        _i: '',
-        _saving: false
+        fixKind: '',
+        fixMode: '',
+        fixId: '',
+        saving: false
     },
     onInit: function () {
         // 通道A: system router(便条/词典同款)兜底; 通道B: $app 参数仓, 读后覆盖、优先生效
@@ -39,9 +39,9 @@ export default {
             self.modeTitle = self.mode === 'edit' ? '\u7F16\u8F91' : '\u65B0\u5EFA';
             self.showDel = self.mode === 'edit';
             // 固化入口参数：此后 kind/mode/id 不再接受任何 params 覆盖（曾被 onShow 拷贝冲掉）
-            self._k = self.kind;
-            self._m = self.mode;
-            self._i = self.id;
+            self.fixKind = self.kind;
+            self.fixMode = self.mode;
+            self.fixId = self.id;
             self.syncView();
             if (self.mode === 'edit') self.loadItem();
         });
@@ -54,7 +54,7 @@ export default {
         let self = this;
         common.getParams(this, function () {
             // 只接收键盘回传的文本，kind/mode/id 一律还原为入口固化值
-            if (self._k) { self.kind = self._k; self.mode = self._m; self.id = self._i; }
+            if (self.fixKind) { self.kind = self.fixKind; self.mode = self.fixMode; self.id = self.fixId; }
             if (self.kbText) {
                 self.text = self.kbText;
                 self.msg = '';
@@ -95,7 +95,7 @@ export default {
     },
     loadItem: function () {
         let self = this;
-        let kind = this._k || this.kind;
+        let kind = this.fixKind || this.kind;
         data.load(kind, function (arr) {
             for (let i = 0; i < arr.length; i++) {
                 if (arr[i].id === self.id) { self.text = arr[i].t; break; }
@@ -109,7 +109,7 @@ export default {
         });
     },
     onSave: function () {
-        if (this._saving) return;          // 防双击：commit 异步，二次进入会重复插入
+        if (this.saving) return;          // 防双击：commit 异步，二次进入会重复插入
         let t = String(this.text || '').trim();
         if (t === '') { this.msg = '\u5185\u5BB9\u4E0D\u80FD\u4E3A\u7A7A'; this.syncView(); return; }
         if (t.length > this.maxLen) { t = t.substring(0, this.maxLen); this.msg = '\u5DF2\u622A\u65AD\u5230\u4E0A\u9650'; }
@@ -117,10 +117,10 @@ export default {
         this.text = t;
         this.syncView();
         let self = this;
-        this._saving = true;
-        let kind = this._k || this.kind;
-        let mode = this._m || this.mode;
-        let itemId = this._i || this.id;
+        this.saving = true;
+        let kind = this.fixKind || this.kind;
+        let mode = this.fixMode || this.mode;
+        let itemId = this.fixId || this.id;
         data.load(kind, function (arr) {
             let now = Date.now();
             if (mode === 'edit' && itemId !== '') {
@@ -131,30 +131,30 @@ export default {
                 if (!hit) arr.unshift({ id: itemId, t: t, d: 0, c: now, u: now });
             } else {
                 let nid = data.newId();
-                self._i = nid;
+                self.fixId = nid;
                 self.id = nid;
-                self._m = 'edit';
+                self.fixMode = 'edit';
                 self.mode = 'edit';
                 self.showDel = true;
                 arr.unshift({ id: nid, t: t, d: 0, c: now, u: now });
             }
             data.commit(kind, arr, function () {
-                self._saving = false;
+                self.saving = false;
                 router.back();
             });
         });
     },
     onRemove: function () {
-        if (this._saving) return;
-        let id = this._i || this.id;
+        if (this.saving) return;
+        let id = this.fixId || this.id;
         if (id === '') { router.back(); return; }
-        this._saving = true;
-        let kind = this._k || this.kind;
+        this.saving = true;
+        let kind = this.fixKind || this.kind;
         let self = this;
         data.load(kind, function (arr) {
             let next = [];
             for (let i = 0; i < arr.length; i++) { if (arr[i].id !== id) next.push(arr[i]); }
-            data.commit(kind, next, function () { self._saving = false; router.back(); });
+            data.commit(kind, next, function () { self.saving = false; router.back(); });
         });
     },
     onSwipe: function (e) {

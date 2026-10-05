@@ -14,7 +14,7 @@
       <div class="im-container">
 
       <!--候选词推荐-->
-         <div class="im-sub-container" style="height : 65px; justify-content : center; align-items : center;" grab:swipe="doNotSwipe" show="{{ inputMethod.show.keyboard }}">
+         <div class="im-sub-container" style="height : 65px; justify-content : center; align-items : center;" @swipe="doNotSwipe" show="{{ inputMethod.show.keyboard }}">
             <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-right: 2px;align-items: center;justify-content: center;" @click="keyboardReplaceCandidate">
                <image style="width: 48px;height: 48px;"  src="{{ '/common/image/inputMethod/icon-button-keyboard-' + inputMethod.menuType + '.png'}}"></image>
             </div>
@@ -71,7 +71,7 @@
       <!--候选词-->
          <list class="im-sub-container" style="height : 370px;" ref="list"
                show="{{ inputMethod.show.candidate }}"
-               grab:swipe="candidateSwipe">
+               @swipe="candidateSwipe">
             <list-item class="im-candidate-full-root-item"
                        style="height : {{ Math.ceil(inputMethod.candidateArr.length / fullCols) * 77 }};">
                <input freeze="true" class="im-candidate-full-item" style="width : {{ fullW }} px; font-size : {{ fullFont }} px; color : #FFFFFF; background-color : {{ RounderBackgroundValue.candidateBackground}}; border-radius : {{ RounderBackgroundValue.candidateRadius}}"
