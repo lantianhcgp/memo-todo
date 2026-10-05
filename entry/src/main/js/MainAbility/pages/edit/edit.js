@@ -77,7 +77,7 @@ export default {
             var c = s.charCodeAt(i);
             if (c === 10) {
                 lines++;
-                if (lines > 4) { out += '\u2026'; break; }
+                if (lines > 3) { out += '\u2026'; break; }
                 out += '\n';
                 w = 0;
                 continue;
@@ -85,7 +85,7 @@ export default {
             var cw = (c > 0x2E80) ? fs : Math.round(fs * 0.56);
             if (w + cw > maxW) {
                 lines++;
-                if (lines > 4) { out += '\u2026'; break; }
+                if (lines > 3) { out += '\u2026'; break; }
                 w = 0;
             }
             w += cw;
