@@ -3,7 +3,7 @@ import router from '../../common/router';
 import storage from '@system.storage';
 import vibrator from '@system.vibrator';
 import common from '../../common/common';
-const inputMethod = $app.im;
+import inputMethod from '../../common/inputMethod';
 
 
 let timeInterval
@@ -29,6 +29,7 @@ export default {
             text: ""
         },
         typeData: "",
+        bootErr: "",
         
         inputMethod: {
             
@@ -53,6 +54,13 @@ export default {
         }
     },
     onInit() {
+        try {
+            this.bootInit();
+        } catch (e) {
+            this.bootErr = '\u542F\u52A8\u5931\u8D25: ' + String((e && e.message) || e);
+        }
+    },
+    bootInit() {
         this.getTime();
         this.getBackgroundSettings();
         common.clean();
@@ -250,16 +258,20 @@ export default {
         });
     },
     onShow() {
-        if (this.$refs.candidate.rotation) {
+        if (this.$refs && this.$refs.candidate && this.$refs.candidate.rotation) {
             this.$refs.candidate.rotation();
         }
     },
     onHide() {
-        if (this.$refs.candidate.rotation) {
+        if (this.$refs && this.$refs.candidate && this.$refs.candidate.rotation) {
             this.$refs.candidate.rotation({
                 focus: false
             });
         }
+    },
+    onBackPress() {
+        router.back();
+        return true;
     },
     onDestroy() {
         clearInterval(timeInterval);

@@ -1,4 +1,3 @@
-import inputMethod from './common/inputMethod';
 import brightness from '@system.brightness';
 import storage from '@system.storage';
 
@@ -20,8 +19,7 @@ var currentUri = "";
 var saveDataObj = {};
 
 export default {
-    
-    im: inputMethod,
+
     onCreate() {
         console.log("app onCreate");
         this.keepScreenOn();

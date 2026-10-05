@@ -1,4 +1,5 @@
 <stack class="stack-container">
+   <text class="boot-err" show="{{ bootErr }}">{{ bootErr }}</text>
    <div class="container" @swipe="onswipe">
       <div class="title-item">
          <text class="title" @longpress="handleReplaceSearchSettings">&#x8f93;&#x5165;&#x5185;&#x5bb9;({{ search_type.toUpperCase() }})</text>
