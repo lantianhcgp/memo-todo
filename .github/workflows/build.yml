@@ -45,7 +45,7 @@ jobs:
 
       - name: Build unsigned App
         working-directory: ${{ matrix.path }}
-        run: hvigorw assembleApp --mode project -p product=default -p buildMode=debug --no-daemon --accept-license
+        run: hvigorw assembleApp --mode project -p product=default -p buildMode=release --no-daemon --accept-license
 
       - name: Sanitize packed config.json (Lite schema)
         run: python3 scripts/clean_config_in_app.py "${{ matrix.path }}"/build/outputs/default/*.app
