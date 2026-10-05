@@ -6,9 +6,9 @@
          <text class="title-time">{{ timeString }}</text>
       </div>
       <div class="edit-text-container">
-         <input freeze="true" class="edit-text" value="{{ typeData + inputMethod.chineseCandidateWord }}"></input>
+         <text class="edit-text">{{ getLeftStr(typeData + inputMethod.chineseCandidateWord).str }}</text>
          <div class="edit-text-caret"></div>
-      </div>
+     </div>
 
    <!--Input Method-->
       <div class="im-container">

@@ -10,8 +10,6 @@ export default {
         done: 0,
         empty: true,
         showDone: false,
-        menuId: '',
-        menuText: ''
     },
     onInit: function () { this.reload(); },
     onShow: function () { this.reload(); },
@@ -62,25 +60,9 @@ export default {
     },
     onLong: function (id) {
         if (id === '__fold') return;
-        for (let i = 0; i < this.all.length; i++) {
-            if (this.all[i].id === id) { this.menuId = id; this.menuText = this.all[i].t; break; }
-        }
-    },
-    closeMenu: function () { this.menuId = ''; this.menuText = ''; },
-    menuEdit: function () {
-        let id = this.menuId;
-        this.closeMenu();
         common.writeMultiParams({ kind: 'todo', mode: 'edit', id: id }, function () {
             router.push({ uri: 'pages/edit/edit', params: { kind: 'todo', mode: 'edit', id: id } });
         });
-    },
-    menuDel: function () {
-        let self = this;
-        let id = this.menuId;
-        this.closeMenu();
-        let next = [];
-        for (let i = 0; i < this.all.length; i++) { if (this.all[i].id !== id) next.push(this.all[i]); }
-        data.commit('todo', next, function () { self.reload(); });
     },
     onAdd: function () {
         common.writeMultiParams({ kind: 'todo', mode: 'add' }, function () {

@@ -26,12 +26,4 @@
         <div class="nav-btn nav-btn-alt" @click="onNote"><text class="nav-btn-t">&#x5907;&#x5FD8;</text></div>
     </div>
     </div>
-    <div class="menu-mask" if="{{ menuId !== '' }}" @click="closeMenu">
-        <div class="menu">
-            <text class="menu-head">{{ menuText }}</text>
-            <div class="menu-item" @click="menuEdit"><text class="menu-t">&#x7F16;&#x8F91;</text></div>
-            <div class="menu-item menu-del" @click="menuDel"><text class="menu-t">&#x5220;&#x9664;</text></div>
-            <div class="menu-item" @click="closeMenu"><text class="menu-t">&#x53D6;&#x6D88;</text></div>
-        </div>
-    </div>
 </stack>

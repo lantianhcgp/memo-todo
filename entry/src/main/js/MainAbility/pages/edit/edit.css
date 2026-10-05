@@ -12,7 +12,7 @@
 .del-bar { height: 56px; width: 100%; align-items: center; justify-content: center; }
 .del-btn { width: 230px; height: 53px; border-radius: 26px; background-color: #2A1416; align-items: center; justify-content: center; }
 .del-t { font-size: 24px; color: #FF5A5F; }
-.bottom-bar { height: 80px; width: 412px; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 21px; padding-right: 21px; }
-.nav-btn { width: 193px; height: 64px; border-radius: 32px; background-color: #1F71FF; align-items: center; justify-content: center; }
+.bottom-bar {height: 80px; width: 412px; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 28px; padding-right: 28px; padding-bottom: 12px;}
+.nav-btn {width: 168px; height: 64px; border-radius: 32px; background-color: #1F71FF; align-items: center; justify-content: center;}
 .nav-btn-alt { background-color: #24262C; }
 .nav-btn-t { font-size: 28px; color: #FFFFFF; font-weight: bold; }
