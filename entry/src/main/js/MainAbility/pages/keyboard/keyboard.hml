@@ -35,16 +35,36 @@
                  flex-direction : column;" show="{{ inputMethod.show.keyboard }}">
 
          <div class="im-button-container">
-            <input type="button" class="im-button" for="{{ kbRow1 }}"
-                   value="{{ $item }}" @click="addLetter($item)"></input>
+            <div class="im-key" @click="addLetter('q')"><text class="im-key-t">q</text></div>
+            <div class="im-key" @click="addLetter('w')"><text class="im-key-t">w</text></div>
+            <div class="im-key" @click="addLetter('e')"><text class="im-key-t">e</text></div>
+            <div class="im-key" @click="addLetter('r')"><text class="im-key-t">r</text></div>
+            <div class="im-key" @click="addLetter('t')"><text class="im-key-t">t</text></div>
+            <div class="im-key" @click="addLetter('y')"><text class="im-key-t">y</text></div>
+            <div class="im-key" @click="addLetter('u')"><text class="im-key-t">u</text></div>
+            <div class="im-key" @click="addLetter('i')"><text class="im-key-t">i</text></div>
+            <div class="im-key" @click="addLetter('o')"><text class="im-key-t">o</text></div>
+            <div class="im-key" @click="addLetter('p')"><text class="im-key-t">p</text></div>
          </div>
          <div class="im-button-container">
-            <input type="button" class="im-button" style="width: 43px;" for="{{ kbRow2 }}"
-                   value="{{ $item }}" @click="addLetter($item)"></input>
+            <div class="im-key" style="width: 45px;" @click="addLetter('a')"><text class="im-key-t">a</text></div>
+            <div class="im-key" style="width: 45px;" @click="addLetter('s')"><text class="im-key-t">s</text></div>
+            <div class="im-key" style="width: 45px;" @click="addLetter('d')"><text class="im-key-t">d</text></div>
+            <div class="im-key" style="width: 45px;" @click="addLetter('f')"><text class="im-key-t">f</text></div>
+            <div class="im-key" style="width: 45px;" @click="addLetter('g')"><text class="im-key-t">g</text></div>
+            <div class="im-key" style="width: 45px;" @click="addLetter('h')"><text class="im-key-t">h</text></div>
+            <div class="im-key" style="width: 45px;" @click="addLetter('j')"><text class="im-key-t">j</text></div>
+            <div class="im-key" style="width: 45px;" @click="addLetter('k')"><text class="im-key-t">k</text></div>
+            <div class="im-key" style="width: 45px;" @click="addLetter('l')"><text class="im-key-t">l</text></div>
          </div>
          <div class="im-button-container">
-            <input type="button" class="im-button" style="width: 58px;" for="{{ kbRow3 }}"
-                   value="{{ $item }}" @click="addLetter($item)"></input>
+            <div class="im-key" style="width: 60px;" @click="addLetter('z')"><text class="im-key-t">z</text></div>
+            <div class="im-key" style="width: 60px;" @click="addLetter('x')"><text class="im-key-t">x</text></div>
+            <div class="im-key" style="width: 60px;" @click="addLetter('c')"><text class="im-key-t">c</text></div>
+            <div class="im-key" style="width: 60px;" @click="addLetter('v')"><text class="im-key-t">v</text></div>
+            <div class="im-key" style="width: 60px;" @click="addLetter('b')"><text class="im-key-t">b</text></div>
+            <div class="im-key" style="width: 60px;" @click="addLetter('n')"><text class="im-key-t">n</text></div>
+            <div class="im-key" style="width: 60px;" @click="addLetter('m')"><text class="im-key-t">m</text></div>
          </div>
       </div>
 

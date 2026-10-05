@@ -1,8 +1,8 @@
 .container { flex-direction: column; width: 100%; height: 100%; background-color: #000000; }
-.header-bar { height: 74px; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 25px; padding-right: 25px; }
-.title { font-size: 36px; color: #FFFFFF; font-weight: bold; }
+.header-bar { height: 86px; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 40px; padding-right: 25px; padding-top: 12px; }
+.title { font-size: 32px; color: #FFFFFF; font-weight: bold; }
 .mode-t { font-size: 21px; color: #7A8290; }
-.preview { width: 100%; flex: 1; padding-left: 25px; padding-right: 25px; margin-top: 7px; margin-bottom: 7px; background-color: #111318; border-radius: 23px; justify-content: center; }
+.preview { width: 100%; height: 220px; padding-left: 25px; padding-right: 25px; margin-top: 7px; margin-bottom: 7px; background-color: #111318; border-radius: 23px; justify-content: center; }
 .preview-text { font-size: 31px; color: #E8ECF3; width: 100%; text-overflow: ellipsis; }
 .preview-empty { font-size: 24px; color: #5B6270; width: 100%; }
 .meta-bar { height: 51px; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 25px; padding-right: 25px; }

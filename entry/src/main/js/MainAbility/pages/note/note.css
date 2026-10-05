@@ -1,8 +1,8 @@
 .container { flex-direction: column; width: 100%; height: 100%; background-color: #000000; }
-.header-bar { height: 74px; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 25px; padding-right: 25px; }
-.title { font-size: 36px; color: #FFFFFF; font-weight: bold; }
+.header-bar { height: 86px; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 40px; padding-right: 25px; padding-top: 12px; }
+.title { font-size: 32px; color: #FFFFFF; font-weight: bold; }
 .count { font-size: 21px; color: #7A8290; }
-.note-list { width: 100%; flex: 1; }
+.note-list { width: 100%; height: 340px; }
 .item { height: 87px; }
 .item-bg { flex-direction: column; width: 100%; height: 87px; padding-left: 23px; padding-right: 23px; justify-content: center; background-color: #111318; margin-top: 5px; border-radius: 18px; }
 .note-t { font-size: 27px; color: #E8ECF3; width: 100%; text-overflow: ellipsis; }
@@ -11,7 +11,7 @@
 .tail { height: 51px; }
 .tail-bg { background-color: #000000; align-items: center; margin-top: 0px; }
 .tail-t { font-size: 18px; color: #4A5261; }
-.confirm { width: 100%; flex: 1; flex-direction: column; align-items: center; justify-content: center; background-color: #111318; border-radius: 23px; margin-left: 9px; margin-right: 9px; }
+.confirm { width: 100%; height: 340px; flex-direction: column; align-items: center; justify-content: center; background-color: #111318; border-radius: 23px; margin-left: 9px; margin-right: 9px; }
 .confirm-t { font-size: 29px; color: #FFFFFF; }
 .confirm-row { flex-direction: row; margin-top: 30px; }
 .c-btn { width: 161px; height: 64px; border-radius: 32px; align-items: center; justify-content: center; margin-left: 12px; margin-right: 12px; }
