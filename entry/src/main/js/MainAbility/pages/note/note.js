@@ -17,7 +17,7 @@ export default {
             let out = [];
             for (let i = 0; i < arr.length; i++) {
                 let it = arr[i];
-                let t = (it.t || '').replace(/\n/g, ' ');
+                let t = String(it.t || '').split('\n').join(' ');
                 if (t.length > 24) t = t.substring(0, 24);
                 out.push({ id: it.id, t: t, d: self.fmt(it.c || 0) });
             }

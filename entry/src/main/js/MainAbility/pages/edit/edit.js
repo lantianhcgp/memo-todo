@@ -57,7 +57,7 @@ export default {
         router.push({ uri: 'pages/keyboard/keyboard' });
     },
     onSave: function () {
-        let t = (this.text || '').replace(/^\s+|\s+$/g, '');
+        let t = String(this.text || '').trim();
         if (t === '') { this.msg = '\u5185\u5BB9\u4E0D\u80FD\u4E3A\u7A7A'; this.syncView(); return; }
         if (t.length > this.maxLen) { t = t.substring(0, this.maxLen); this.msg = '\u5DF2\u622A\u65AD\u5230\u4E0A\u9650'; }
         else { this.msg = ''; }
