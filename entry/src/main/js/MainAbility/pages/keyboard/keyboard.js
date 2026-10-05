@@ -264,7 +264,17 @@ export default {
         this.inputMethod.menuType = "back";
     },
     getLeftStr(text) {
-        return { str: text };
+        // 按 360px 可视宽从尾部回填：右对齐显示，避免超长时左边被裁
+        var w = 0;
+        var out = "";
+        for (var i = text.length - 1; i >= 0; i--) {
+            var c = text.charCodeAt(i);
+            var cw = (c > 0x2E80) ? 30 : 17;
+            if (w + cw > 360) break;
+            w += cw;
+            out = text.charAt(i) + out;
+        }
+        return { str: out };
     },
     handleSeeTips() {
         storage.set({

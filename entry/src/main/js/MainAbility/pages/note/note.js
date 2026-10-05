@@ -1,4 +1,5 @@
 import router from '../../common/router';
+import common from '../../common/common';
 import data from '../../common/data';
 
 export default {
@@ -39,7 +40,9 @@ export default {
     },
     onOpen: function (id) {
         if (this.confirming) return;
-        router.push({ uri: 'pages/edit/edit', params: { kind: 'memo', mode: 'edit', id: id } });
+        common.writeMultiParams({ kind: 'memo', mode: 'edit', id: id }, function () {
+            router.push({ uri: 'pages/edit/edit' });
+        });
     },
     onAskDel: function (id) {
         this.delId = id;
@@ -61,7 +64,9 @@ export default {
     },
     onAdd: function () {
         if (this.confirming) return;
-        router.push({ uri: 'pages/edit/edit', params: { kind: 'memo', mode: 'add' } });
+        common.writeMultiParams({ kind: 'memo', mode: 'add' }, function () {
+            router.push({ uri: 'pages/edit/edit' });
+        });
     },
     onBack: function () {
         router.back();

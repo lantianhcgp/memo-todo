@@ -18,10 +18,18 @@
         <list-item class="item" if="{{ empty }}">
             <div class="item-bg"><text class="empty-text">&#x8FD8;&#x6CA1;&#x6709;&#x5F85;&#x529E;&#xFF0C;&#x70B9;&#x4E0B;&#x65B9;&#x6DFB;&#x52A0;</text></div>
         </list-item>
-        <list-item class="item tail"><div class="item-bg tail-bg"><text class="tail-t">&#x957F;&#x6309;&#x4E8B;&#x9879;&#x53EF;&#x7F16;&#x8F91;</text></div></list-item>
+        <list-item class="item tail"><div class="item-bg tail-bg"><text class="tail-t">&#x957F;&#x6309;&#x4E8B;&#x9879;&#x53EF;&#x7F16;&#x8F91;/&#x5220;&#x9664;</text></div></list-item>
     </list>
     <div class="bottom-bar">
         <div class="nav-btn" @click="onAdd"><text class="nav-btn-t">+ &#x6DFB;&#x52A0;</text></div>
         <div class="nav-btn nav-btn-alt" @click="onNote"><text class="nav-btn-t">&#x5907;&#x5FD8;</text></div>
+    </div>
+    <div class="menu-mask" if="{{ menuId !== '' }}" @click="closeMenu">
+        <div class="menu">
+            <text class="menu-head">{{ menuText }}</text>
+            <div class="menu-item" @click="menuEdit"><text class="menu-t">&#x7F16;&#x8F91;</text></div>
+            <div class="menu-item menu-del" @click="menuDel"><text class="menu-t">&#x5220;&#x9664;</text></div>
+            <div class="menu-item" @click="closeMenu"><text class="menu-t">&#x53D6;&#x6D88;</text></div>
+        </div>
     </div>
 </div>

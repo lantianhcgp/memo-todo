@@ -2,13 +2,14 @@
 .header-bar { height: 86px; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 40px; padding-right: 25px; padding-top: 12px; }
 .title { font-size: 32px; color: #FFFFFF; font-weight: bold; }
 .mode-t { font-size: 21px; color: #7A8290; }
-.preview { width: 380px; height: 190px; padding-left: 25px; padding-right: 25px; margin-top: 7px; margin-bottom: 7px; background-color: #111318; border-radius: 23px; justify-content: center; }
-.preview-text { font-size: 31px; color: #E8ECF3; width: 100%; text-overflow: ellipsis; }
-.preview-empty { font-size: 24px; color: #5B6270; width: 100%; }
+.preview { width: 380px; height: 146px; margin-top: 7px; margin-bottom: 7px; background-color: #111318; border-radius: 23px; justify-content: center; }
+.preview-text { font-size: 31px; color: #FFFFFF; width: 330px; margin-left: 25px; text-align: left; }
+.preview-empty { font-size: 24px; color: #8A93A6; width: 330px; margin-left: 25px; }
+.fill { width: 412px; }
 .meta-bar { height: 51px; width: 380px; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 25px; padding-right: 25px; }
 .meta-t { font-size: 20px; color: #8A93A6; }
 .msg-t { font-size: 20px; color: #FF9F43; }
-.del-bar { height: 64px; width: 100%; align-items: center; justify-content: center; }
+.del-bar { height: 56px; width: 100%; align-items: center; justify-content: center; }
 .del-btn { width: 230px; height: 53px; border-radius: 26px; background-color: #2A1416; align-items: center; justify-content: center; }
 .del-t { font-size: 24px; color: #FF5A5F; }
 .bottom-bar { height: 87px; width: 412px; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 21px; padding-right: 21px; }

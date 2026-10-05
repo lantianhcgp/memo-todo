@@ -14,20 +14,23 @@ export default {
         modeTitle: '',
         showDel: false,
         msg: '',
-        kbText: ''
+        kbText: '',
+        previewText: ''
     },
     onInit: function () {
-        let p = router.getParams();
-        if (!p) p = {};
-        this.kind = p.kind === 'memo' ? 'memo' : 'todo';
-        this.mode = p.mode === 'edit' ? 'edit' : 'add';
-        this.id = p.id ? p.id : '';
-        this.maxLen = data.maxLen(this.kind);
-        this.kindTitle = this.kind === 'memo' ? '\u5907\u5FD8' : '\u5F85\u529E';
-        this.modeTitle = this.mode === 'edit' ? '\u7F16\u8F91' : '\u65B0\u5EFA';
-        this.showDel = this.mode === 'edit';
-        this.syncView();
-        if (this.mode === 'edit') this.loadItem();
+        // 参数统一走 $app 参数仓（system router 的 getParams 在本工程读不稳，导致备忘存成待办/编辑变新建）
+        let self = this;
+        common.getParams(this, function () {
+            self.kind = self.kind === 'memo' ? 'memo' : 'todo';
+            self.mode = self.mode === 'edit' ? 'edit' : 'add';
+            self.id = self.id ? self.id : '';
+            self.maxLen = data.maxLen(self.kind);
+            self.kindTitle = self.kind === 'memo' ? '\u5907\u5FD8' : '\u5F85\u529E';
+            self.modeTitle = self.mode === 'edit' ? '\u7F16\u8F91' : '\u65B0\u5EFA';
+            self.showDel = self.mode === 'edit';
+            self.syncView();
+            if (self.mode === 'edit') self.loadItem();
+        });
     },
     onBackPress() {
         router.back();
@@ -47,6 +50,32 @@ export default {
     },
     syncView: function () {
         this.hasText = this.text !== '';
+        this.previewText = this.fit(this.text, 330, 31);
+    },
+    // 按可见宽度从头截断：预览区永远从第一个字符开始显示
+    fit: function (s, maxW, fs) {
+        var w = 0;
+        var out = '';
+        var lines = 1;
+        for (var i = 0; i < s.length; i++) {
+            var c = s.charCodeAt(i);
+            if (c === 10) {
+                lines++;
+                if (lines > 4) { out += '\u2026'; break; }
+                out += '\n';
+                w = 0;
+                continue;
+            }
+            var cw = (c > 0x2E80) ? fs : Math.round(fs * 0.56);
+            if (w + cw > maxW) {
+                lines++;
+                if (lines > 4) { out += '\u2026'; break; }
+                w = 0;
+            }
+            w += cw;
+            out += s.charAt(i);
+        }
+        return out;
     },
     loadItem: function () {
         let self = this;

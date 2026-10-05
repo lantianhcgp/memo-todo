@@ -319,8 +319,10 @@
 
 .edit-text {
     width: 374px;
-    height: 40px;
+    height: 44px;
     font-family: HYQiHei-65S;
+    font-size: 30px;
+    color: #FFFFFF;
     text-align: right;
     margin-left: 16px;
 }
