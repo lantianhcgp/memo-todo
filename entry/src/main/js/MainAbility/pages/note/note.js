@@ -66,6 +66,10 @@ export default {
     onBack: function () {
         router.back();
     },
+    onBackPress() {
+        router.back();
+        return true;
+    },
     onSwipe: function (e) {
         if (e && e.direction === 'right') router.back();
     }

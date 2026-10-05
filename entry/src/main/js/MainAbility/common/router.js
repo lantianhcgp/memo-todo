@@ -34,6 +34,7 @@ export default class router {
    
    static back(obj) {
       let uri = pages_array.pop();
+      if (!uri) uri = "pages/index/index";   // 栈空或首项为空串 → 回首页，避免 replace({uri:''}) 静默失败
       globalApp.writeRouterUriList(pages_array);
       if (obj == undefined) {
          system_router.default.replace({

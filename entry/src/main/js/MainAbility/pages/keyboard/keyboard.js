@@ -31,22 +31,17 @@ export default {
         typeData: "",
         bootErr: "",
         
+        kbRow1: [],
+        kbRow2: [],
+        kbRow3: [],
         inputMethod: {
-            
             chineseCandidateWord: "",
-            
-            keyboardType: inputMethod.keyboardTypeData.english,
-            
-            keyboardCase: inputMethod.keyboardCaseData.lower,
-            
-            keyboardLayoutData: inputMethod.keyboardLayoutData.lowercase,
-            
-            keyboardLayoutDataArr: inputMethod.keyboardLayoutData.lowercaseArr,
-            
+            keyboardType: "",
+            keyboardCase: "",
+            keyboardLayoutData: "",
+            keyboardLayoutDataArr: [],
             candidateArr: [],
-            
             menuType: "back",
-            
             show: {
                 keyboard: true,
                 candidate: false
@@ -61,6 +56,21 @@ export default {
         }
     },
     bootInit() {
+        var K = inputMethod.keyboardLayoutData;
+        var im = this.inputMethod;
+        im.keyboardType = inputMethod.keyboardTypeData.english;
+        im.keyboardCase = inputMethod.keyboardCaseData.lower;
+        im.keyboardLayoutData = K.lowercase;
+        im.keyboardLayoutDataArr = K.lowercaseArr;
+        im.candidateArr = [];
+        im.menuType = "back";
+        im.show = { keyboard: true, candidate: false };
+        this.kbRow1 = K.lowercase.split("").slice(0, 10);
+        this.kbRow2 = K.lowercase.split("").slice(10, 19);
+        this.kbRow3 = K.lowercase.split("").slice(19, 26);
+        if (!this.kbRow1.length) {
+            this.bootErr = "\u952E\u76D8\u5E03\u5C40\u4E3A\u7A7A typeof=" + typeof K;
+        }
         this.getTime();
         this.getBackgroundSettings();
         common.clean();

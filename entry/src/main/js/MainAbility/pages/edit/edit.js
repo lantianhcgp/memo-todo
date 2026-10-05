@@ -29,6 +29,10 @@ export default {
         this.syncView();
         if (this.mode === 'edit') this.loadItem();
     },
+    onBackPress() {
+        router.back();
+        return true;
+    },
     onShow: function () {
         let self = this;
         common.getParams(this, function () {

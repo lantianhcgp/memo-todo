@@ -34,45 +34,19 @@
          <div class="im-sub-container" style="height : 201px;
                  flex-direction : column;" show="{{ inputMethod.show.keyboard }}">
 
-         <!--第一个按键和最后一个按键做特殊化处理-->
-         <!--TODO 这样做影响内存消耗，有无更好解决办法？-->
-            <div class="im-button-container">
-               <input type="button" class="im-button"
-                      value="{{ inputMethod.keyboardLayoutData[0] }}"
-                      @click="addLetter(inputMethod.keyboardLayoutData[0])"></input>
-               <input for="{{ inputMethod.keyboardLayoutDataArr[0] }}" type="button" class="im-button"
-                      value="{{ $item }}" @click="addLetter($item)"></input>
-               <input type="button" class="im-button"
-                      value="{{ inputMethod.keyboardLayoutData[9] }}"
-                      @click="addLetter(inputMethod.keyboardLayoutData[9])"></input>
-            </div>
-
-         <!--第一个按键和最后一个按键做特殊化处理-->
-            <div class="im-button-container">
-               <input type="button" class="im-button" style="width: 43px;"
-                      value="{{ inputMethod.keyboardLayoutData[10] }}"
-                      @click="addLetter(inputMethod.keyboardLayoutData[10])"></input>
-               <input for="{{ inputMethod.keyboardLayoutDataArr[1] }}" type="button"
-                      class="im-button" style="width: 43px;" value="{{ $item }}"
-                      @click="addLetter($item)"></input>
-               <input type="button" class="im-button" style="width: 43px;"
-                      value="{{ inputMethod.keyboardLayoutData[18] }}"
-                      @click="addLetter(inputMethod.keyboardLayoutData[18])"></input>
-            </div>
-
-         <!--第一个按键和最后一个按键做特殊化处理-->
-            <div class="im-button-container">
-               <input type="button" class="im-button" style="width: 58px;"
-                      value="{{ inputMethod.keyboardLayoutData[19] }}"
-                      @click="addLetter(inputMethod.keyboardLayoutData[19])"></input>
-               <input for="{{ inputMethod.keyboardLayoutDataArr[2] }}" type="button"
-                      class="im-button" style="width: 58px;" value="{{ $item }}"
-                      @click="addLetter($item)"></input>
-               <input type="button" class="im-button" style="width: 58px;"
-                      value="{{ inputMethod.keyboardLayoutData[25] }}"
-                      @click="addLetter(inputMethod.keyboardLayoutData[25])"></input>
-            </div>
+         <div class="im-button-container">
+            <input type="button" class="im-button" for="{{ kbRow1 }}"
+                   value="{{ $item }}" @click="addLetter($item)"></input>
          </div>
+         <div class="im-button-container">
+            <input type="button" class="im-button" style="width: 43px;" for="{{ kbRow2 }}"
+                   value="{{ $item }}" @click="addLetter($item)"></input>
+         </div>
+         <div class="im-button-container">
+            <input type="button" class="im-button" style="width: 58px;" for="{{ kbRow3 }}"
+                   value="{{ $item }}" @click="addLetter($item)"></input>
+         </div>
+      </div>
 
       <!--候选词-->
          <list class="im-sub-container" style="height : 370px;" ref="list"

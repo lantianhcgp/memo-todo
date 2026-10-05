@@ -15,7 +15,7 @@ var isSavingData = false;
 var isRestoredData = false;
 var replaceParams = {};
 var pagesArray = [];
-var currentUri = "";
+var currentUri = "pages/index/index";   // 首页：否则首次 push 进栈的是空串，back 会静默失败
 var saveDataObj = {};
 
 export default {
