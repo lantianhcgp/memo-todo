@@ -5,18 +5,12 @@ var SWIPE_DISTANCE = 150; //判断为返回手势的滑动距离阈值
 var timeoutList = {};
 
 export default class utils {
-    /**
-     * 传入触摸事件的参数, 返回用户当前是否在执行返回手势
-     * @param params 传入触摸事件的参数
-     * @return 是否在执行返回手势
-     */
+    
     static checkIsSwipingBack(params) {
         return params.direction === "right" && (params.distance ? (params.distance >= SWIPE_DISTANCE) : true);
     }
 
-    /**
-     * 赋予/取消表冠焦点
-     */
+    
     static rotationFocus(context, name, focus) {
         if (!context) return;
         if (!context.$refs) return;
@@ -27,9 +21,7 @@ export default class utils {
         });
     }
 
-    /**
-     * list scrollTo
-     */
+    
     static scrollTo(context, name, index) {
         if (!context) return;
         if (!context.$refs) return;
@@ -40,9 +32,7 @@ export default class utils {
         });
     }
 
-    /**
-     * list scrollBy
-     */
+    
     static scrollBy(context, name, distance) {
         if (!context) return;
         if (!context.$refs) return;
@@ -53,16 +43,12 @@ export default class utils {
         });
     }
 
-    /**
-     * 创建一个timeout
-     */
+    
     static createTimeout(name, func, time) {
         timeoutList[name] = setTimeout(func, time);
     }
 
-    /**
-     * 如果存在，清空这个timeout
-     */
+    
     static deleteTimeout(name) {
         if (timeoutList[name]) {
             clearTimeout(timeoutList[name]);
@@ -70,9 +56,7 @@ export default class utils {
         }
     }
 
-    /**
-     * 清空所有timeout，推荐在页面销毁期间使用
-     */
+    
     static deleteAllTimeout() {
         for (let name in timeoutList) {
             clearTimeout(timeoutList[name]);
@@ -81,29 +65,21 @@ export default class utils {
         timeoutList = null;
     }
 
-    /**
-     * 设置是否常亮
-     */
+    
     static setAlwaysOn(isAlwaysOn) {
         brightness.setKeepScreenOn({
             keepScreenOn: isAlwaysOn
         });
     }
 
-    /**
-     * 设置是否保活
-     */
+    
     static setAppSave(isAppSave) {
         app.screenOnVisible({
             visible: isAppSave
         });
     }
 
-    /**
-     * 格式化时间戳
-     * @param ts 时间戳
-     * @returns 格式化文本, 格式为 YYYY/MM/DD hh:mm
-     */
+    
     static formatTimeStamp(ts) {
         if (ts != null && !isNaN(ts)) {
             var date = new Date(ts);
@@ -119,11 +95,7 @@ export default class utils {
         }
     }
 
-    /**
-     * 格式化文件大小
-     * @param size 文件大小
-     * @returns 格式化文本, 格式为 XXX MB/GB/KB
-     */
+    
     static formatSize(size) {
         let value = Number(size);
         if (size && !isNaN(value)) {
@@ -141,26 +113,19 @@ export default class utils {
         return '0B';
     }
 
-    /**
-     * 判断当前是否为新特性设备（如GT4）
-     * 当前通过接口支持判断是否为新设备
-     */
+    
     static isNewDevice() {
         return !!app.setSwipeToDismiss;
     }
 
-    /**
-     * 停止事件冒泡
-     */
+    
     static stopPropagation(event) {
         //停止事件冒泡的一系列操作
         if (event.stopPropagation) event.stopPropagation();
         if (event.StopPropagation) event.StopPropagation();
     }
 
-    /**
-     * 释放对象下所有变量的引用
-     */
+    
     static nullObjectData(object) {
         for (let name in object) {
             object[name] = null;

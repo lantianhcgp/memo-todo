@@ -3,8 +3,8 @@ import router from '../../common/router';
 import storage from '@system.storage';
 import vibrator from '@system.vibrator';
 import common from '../../common/common';
-import inputMethod from '../../common/inputMethod';
-import textlayout from '../../common/textlayout'
+const inputMethod = $app.im;
+
 
 let timeInterval
 let toastTimeout = null;
@@ -29,41 +29,23 @@ export default {
             text: ""
         },
         typeData: "",
-        /**
-         * 输入法实现数据
-         */
+        
         inputMethod: {
-            /**
-             * 中文候选词输入内容
-             */
+            
             chineseCandidateWord: "",
-            /**
-             * 键盘类型
-             */
+            
             keyboardType: inputMethod.keyboardTypeData.english,
-            /**
-             * 键盘大小写类型
-             */
+            
             keyboardCase: inputMethod.keyboardCaseData.lower,
-            /**
-             * 键盘布局数据, 该项为内部实现数据
-             */
+            
             keyboardLayoutData: inputMethod.keyboardLayoutData.lowercase,
-            /**
-             * 键盘布局数据, 该项为内部实现数据
-             */
+            
             keyboardLayoutDataArr: inputMethod.keyboardLayoutData.lowercaseArr,
-            /**
-             * 候选词数组
-             */
+            
             candidateArr: [],
-            /**
-             * 菜单选项
-             */
+            
             menuType: "back",
-            /**
-             * 界面显示控制
-             */
+            
             show: {
                 keyboard: true,
                 candidate: false
@@ -88,13 +70,7 @@ export default {
             }
             $app.cleanData();
         });
-        /*        storage.get({
-                    key: 'isShowSearchTips',
-                    default: '1',
-                    success: (data) => {
-                        if (data == "1") this.isShowSearchTips = true;
-                    }
-                });*/
+        
         this.getSearchText();
     },
     getTime() {
@@ -137,16 +113,12 @@ export default {
             }
         });
     },
-    /**
-     * dO nOT sWIPE
-     */
+    
     doNotSwipe(e) {
         utils.stopPropagation(e);
         return;
     },
-    /**
-     * 切换输入法类型
-     */
+    
     switchInputMethodType() {
         this.saveKeyboardWord();
         this.inputMethod.candidateArr = [];
@@ -160,9 +132,7 @@ export default {
         }
         this.getSearchText();
     },
-    /**
-     * 从键盘去候选词
-     */
+    
     keyboardReplaceCandidate() {
         if (this.inputMethod.keyboardType !== inputMethod.keyboardTypeData.english && this.inputMethod.candidateArr.length !== 0) {
             this.inputMethod.show.keyboard = false;
@@ -173,15 +143,11 @@ export default {
             router.back()
         }
     },
-    /**
-     * 候选词滑动
-     */
+    
     candidateSwipe(e) {
         if (utils.checkIsSwipingBack(e)) this.keyboardBackMain();
     },
-    /**
-     * 从候选词回键盘
-     */
+    
     keyboardBackMain() {
         utils.rotationFocus(this, "list", false);
         utils.rotationFocus(this, "candidate", true);
@@ -189,9 +155,7 @@ export default {
         this.inputMethod.show.keyboard = true;
         utils.scrollTo(this, "list", 0);
     },
-    /**
-     * 添加内容
-     */
+    
     addLetter(text) {
         if (this.inputMethod.keyboardType === inputMethod.keyboardTypeData.pinyin) {
             //如果输入法在拼音界面, 添加到候选词输入内容里而非便条输入内容里
@@ -201,9 +165,7 @@ export default {
         }
         this.typeData += text;
     },
-    /**
-     * 添加候选词到便条内容当中
-     */
+    
     addCandidate(text) {
         if (text === "" || text === null) return; //不添加空内容
         this.typeData += text;
@@ -218,9 +180,7 @@ export default {
             this.inputMethod.menuType = "back"
         }
     },
-    /**
-     * 获取拼音候选词
-     */
+    
     getKeyboardPinyinCandidateData(pinyin) {
         this.inputMethod.candidateArr = inputMethod.getChineseCandidate(pinyin);
         if (this.inputMethod.candidateArr.length !== 0) {
@@ -231,9 +191,7 @@ export default {
             this.inputMethod.menuType = "back"
         }
     },
-    /**
-     * 删除一位内容
-     */
+    
     deleteLetter() {
         if (this.inputMethod.keyboardType === inputMethod.keyboardTypeData.pinyin && this.inputMethod.chineseCandidateWord.length !== 0) {
             //如果输入法在拼音界面并且候选词输入内容不为空, 删除候选词输入内容而非便条内容
@@ -252,9 +210,7 @@ export default {
         }
         this.typeData = this.typeData.substring(0, this.typeData.length - deleteCount);
     },
-    /**
-     * 删除全部内容
-     */
+    
     deleteAllLetter() {
         //震动提醒用户全部删除
         if (this.inputMethod.keyboardType === inputMethod.keyboardTypeData.pinyin && this.inputMethod.chineseCandidateWord.length !== 0) {
@@ -266,9 +222,7 @@ export default {
         this.typeData = "";
     },
     getLeftStr(text) {
-        let processText = text.slice(text.lastIndexOf("\n") + 1, text.length);
-        //通过textlayout的getTextByLayoutReverse获取溢出str实现滚动输入框
-        return textlayout.getTextByLayoutReverse(processText, 374, 1, 0, 12);
+        return { str: text };
     },
     handleSeeTips() {
         storage.set({

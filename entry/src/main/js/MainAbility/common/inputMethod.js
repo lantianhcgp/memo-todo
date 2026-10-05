@@ -33,11 +33,7 @@ if (globalApp.getChineseCandidate) {
 }
 
 export default class inputMethod {
-    /**
-     * 获取中文候选词
-     * @param pinyin 汉字拼音, 当前只支持单个汉字
-     * @returns 包含当前拼音的所有候选词的数组
-     */
+    
     static getChineseCandidate(pinyin) {
         if (pinyin.length === 0) return []; //传入空字符串返回空数组
         let firstLetter = pinyin[0]; //获取第一个拼音字母
@@ -60,27 +56,21 @@ export default class inputMethod {
         return secondStageData.split(""); //如果存在 则返回原数据
     }
 
-    /**
-     * 键盘输入方式数据, 该项为内部实现数据
-     */
+    
     static keyboardTypeData = {
         english: "EN",
         pinyin: "拼音",
         symbol: "symbol"
     }
 
-    /**
-     * 键盘大小写数据, 该项为内部实现数据
-     */
+    
     static keyboardCaseData = {
         upper: "upper",
         lower: "lower",
         upperUnlock: "upperUnlock"
     }
 
-    /**
-     * 键盘布局数据, 该项为内部实现数据
-     */
+    
     static keyboardLayoutData = {
         uppercase: "QWERTYUIOPASDFGHJKLZXCVBNM",
         uppercaseArr: [["W", "E", "R", "T", "Y", "U", "I", "O"], ["S", "D", "F", "G", "H", "J", "K"], ["X", "C", "V", "B", "N"]],

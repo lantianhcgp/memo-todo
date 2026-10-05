@@ -1,12 +1,6 @@
 import fs from './fs';
 
-/**
- * 数据层：待办 + 备忘
- * - 存储走 @system.file（storage value<128B 红线，不能存 JSON 大 value）
- * - 写入串行队列：同一文件不并发写
- * - 读取按 4096 字节分片【串行】追加（fs.readLargeFile 是并行乱序追加，本层不用）
- * - 结构：[{ id, t, d, c, u }]  id=唯一id  t=文本  d=完成(待办)  c=创建  u=更新
- */
+
 const URI = {
     todo: 'internal://app/todo.json',
     memo: 'internal://app/memo.json'
@@ -31,7 +25,7 @@ function pump() {
 }
 
 export default class data {
-    /** 单条文本上限（字） */
+    
     static maxLen(kind) {
         return MAX_LEN[kind] || 60;
     }
@@ -40,7 +34,7 @@ export default class data {
         return Date.now().toString(36) + Math.floor(Math.random() * 1000).toString(36);
     }
 
-    /** 分片串行读全量 */
+    
     static readAll(uri, pos, acc, cb) {
         fs.rawApi.readText({
             uri: uri,
@@ -63,7 +57,7 @@ export default class data {
         });
     }
 
-    /** cb(list) 永远回调；文件不存在/损坏返回 [] */
+    
     static load(kind, cb) {
         const uri = URI[kind];
         fs.access(uri, (err, ok) => {
@@ -78,7 +72,7 @@ export default class data {
         });
     }
 
-    /** 提交整表（自动截断上限）；cb(ok) 可省 */
+    
     static commit(kind, list, cb) {
         let arr = list || [];
         if (arr.length > MAX_ITEMS) arr = arr.slice(0, MAX_ITEMS);
