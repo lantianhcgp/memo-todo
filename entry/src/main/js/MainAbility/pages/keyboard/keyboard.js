@@ -34,6 +34,12 @@ export default {
         kbRow1: [],
         kbRow2: [],
         kbRow3: [],
+        chipW: 74,
+        chipFont: 24,
+        fullW: 130,
+        fullFont: 26,
+        fullCols: 3,
+        enPrefix: "",
         inputMethod: {
             chineseCandidateWord: "",
             keyboardType: "",
@@ -82,6 +88,11 @@ export default {
             }
             $app.cleanData();
         });
+        var self = this;
+        inputMethod.ensureDict(function (ok) {
+            var err = inputMethod.dictError();
+            if (!ok || err) self.bootErr = '\u5019\u9009\u8bcd\u5b57\u5178\uff1a' + err;
+        });
     },
     getTime() {
         var getTime = () => {
@@ -126,10 +137,17 @@ export default {
         } else if (this.inputMethod.keyboardType === inputMethod.keyboardTypeData.pinyin) {
             this.inputMethod.keyboardType = inputMethod.keyboardTypeData.english;
         }
+        this.enPrefix = "";
+        var isPinyin = this.inputMethod.keyboardType === inputMethod.keyboardTypeData.pinyin;
+        this.chipW = isPinyin ? 54 : 74;
+        this.chipFont = isPinyin ? 38 : 24;
+        this.fullW = isPinyin ? 98 : 130;
+        this.fullFont = isPinyin ? 38 : 26;
+        this.fullCols = isPinyin ? 4 : 3;
     },
     
     keyboardReplaceCandidate() {
-        if (this.inputMethod.keyboardType !== inputMethod.keyboardTypeData.english && this.inputMethod.candidateArr.length !== 0) {
+        if (this.inputMethod.candidateArr.length !== 0) {
             this.inputMethod.show.keyboard = false;
             this.inputMethod.show.candidate = true;
             utils.rotationFocus(this, "candidate", false);
@@ -159,10 +177,34 @@ export default {
             return;
         }
         this.typeData += text;
+        this.enPrefix = this.getLastWord(this.typeData);
+        this.refreshEnCandidates();
+    },
+    
+    getLastWord(t) {
+        var i = t.lastIndexOf(" ");
+        return i >= 0 ? t.substring(i + 1) : t;
+    },
+    
+    refreshEnCandidates() {
+        if (this.inputMethod.keyboardType !== inputMethod.keyboardTypeData.english) return;
+        this.inputMethod.candidateArr = inputMethod.getEnglishCandidate(this.enPrefix);
+        this.inputMethod.menuType = this.inputMethod.candidateArr.length !== 0 ? "expand" : "back";
     },
     
     addCandidate(text) {
         if (text === "" || text === null) return; //不添加空内容
+        if (this.inputMethod.keyboardType === inputMethod.keyboardTypeData.english) {
+            if (this.enPrefix.length !== 0 && this.typeData.length >= this.enPrefix.length) {
+                this.typeData = this.typeData.substring(0, this.typeData.length - this.enPrefix.length);
+            }
+            this.typeData += text + " ";
+            this.enPrefix = "";
+            this.inputMethod.candidateArr = [];
+            this.inputMethod.menuType = "back";
+            if (this.inputMethod.show.candidate) this.keyboardBackMain();
+            return;
+        }
         this.typeData += text;
         if (this.inputMethod.show.candidate) {
             //用户输入候选词时应退出候选词界面回键盘界面
@@ -204,6 +246,8 @@ export default {
             deleteCount = 1;
         }
         this.typeData = this.typeData.substring(0, this.typeData.length - deleteCount);
+        this.enPrefix = this.getLastWord(this.typeData);
+        this.refreshEnCandidates();
     },
     
     deleteAllLetter() {
@@ -215,6 +259,9 @@ export default {
             return;
         }
         this.typeData = "";
+        this.enPrefix = "";
+        this.inputMethod.candidateArr = [];
+        this.inputMethod.menuType = "back";
     },
     getLeftStr(text) {
         return { str: text };

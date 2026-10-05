@@ -1,5 +1,5 @@
 .im-key {
-    width: 40px;
+    width: 34px;
     height: 64px;
     margin: 2px;
     border-radius: 10px;
@@ -30,7 +30,7 @@
     height: 50px;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
 }
 
 .title {
@@ -86,13 +86,7 @@
     font-size: 30px;
 }
 
-.button-container {
-    width: 466px;
-    height: 70px;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-}
+
 
 
 .button {
@@ -242,6 +236,7 @@
     font-size: 38px;
     margin: 2px;
     text-align: center;
+    color: #FFFFFF;
 }
 
 .im-candidate-full-item:active {
@@ -265,6 +260,7 @@
     height: 54px;
     font-size: 38px;
     text-overflow: ellipsis;
+    color: #FFFFFF;
     background-color: transparent;
 }
 
@@ -279,7 +275,6 @@
     margin: 1px;
     font-size: 38px;
     font-family: HYQiHei-65S;
-/*    font-family: RobotoCondensed-Regular;*/
 }
 
 .im-button:active {

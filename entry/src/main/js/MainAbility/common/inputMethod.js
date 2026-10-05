@@ -14,23 +14,27 @@ try {
     globalApp = {};
 }
 
-if (globalApp.getChineseCandidate) {
-    console.log("can read chinese candidate from app.js.");
-    globalApp.getChineseCandidate((data) => {
-        chineseCandidateData = data;
-    });
-} else {
-    console.log("can not read chinese candidate from app.js, used read file instead.");
-    fs.readLargeFile(dict_uri, (err, data) => {
-        if (err) {
-            fs.printGeneralError(err, data, "read file");
-            return;
-        }
-        chineseCandidateData = JSON.parse(data);
-        data = null;
-        return;
+var en_uri = "internal://app/rawfile/inputMethod/enWords.json";
+var enWords = [];
+var st = { cn: false, en: false, cnErr: "" };
+
+function loadJson(uri, onOk, onFail) {
+    fs.readLargeFile(uri, (err, data) => {
+        if (err) { if (onFail) onFail(String(err)); return; }
+        try { onOk(JSON.parse(data)); } catch (e) { if (onFail) onFail(String(e)); }
     });
 }
+
+function loadCnDict() {
+    if (globalApp.getChineseCandidate) {
+        globalApp.getChineseCandidate((data) => { chineseCandidateData = data; st.cn = true; });
+    } else {
+        loadJson(dict_uri, (d) => { chineseCandidateData = d; st.cn = true; },
+                        (e) => { st.cnErr = e; });
+    }
+}
+loadCnDict();
+loadJson(en_uri, (d) => { enWords = d; st.en = true; }, (e) => { st.cnErr = st.cnErr || e; });
 
 export default class inputMethod {
     
@@ -57,6 +61,30 @@ export default class inputMethod {
     }
 
     
+    // 字典自检/补载：键盘启动时调用，未加载则重读一次
+    static ensureDict(cb) {
+        if (st.cn && chineseCandidateData && Object.keys(chineseCandidateData).length > 0) { cb(true); return; }
+        loadJson(dict_uri, (d) => { chineseCandidateData = d; st.cn = true; cb(true); },
+                        (e) => { st.cnErr = e; cb(false); });
+    }
+
+    static dictError() { return st.cn ? "" : String(st.cnErr || "not loaded"); }
+
+    // 英文联想：按词频表前缀匹配，返回完整单词
+    static getEnglishCandidate(prefix) {
+        if (!prefix || enWords.length === 0) return [];
+        var p = prefix.toLowerCase();
+        var out = [];
+        for (var i = 0; i < enWords.length; i++) {
+            var w = enWords[i];
+            if (w.length > p.length && w.indexOf(p) === 0) {
+                out.push(w);
+                if (out.length >= 6) break;
+            }
+        }
+        return out;
+    }
+
     static keyboardTypeData = {
         english: "EN",
         pinyin: "拼音",

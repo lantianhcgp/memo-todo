@@ -20,8 +20,8 @@
             </div>
             <div class="im-candidate-list">
                <list class="im-candidate-list" ref="candidate">
-                  <list-item for="{{inputMethod.candidateArr}}" class="im-candidate-item" show="{{ ! ! $item }}">
-                     <input freeze="true" class="im-candidate-text" style="background-color : {{ RounderBackgroundValue.candidateBackground}}; border-radius : {{ RounderBackgroundValue.candidateRadius}}" @click="addCandidate($item)">{{$item}}</input>
+                  <list-item for="{{inputMethod.candidateArr}}" class="im-candidate-item" style="width : {{ chipW }} px;" show="{{ ! ! $item }}">
+                     <input freeze="true" class="im-candidate-text" style="width : {{ chipW }} px; font-size : {{ chipFont }} px; color : #FFFFFF; background-color : {{ RounderBackgroundValue.candidateBackground}}; border-radius : {{ RounderBackgroundValue.candidateRadius}}" @click="addCandidate($item)">{{$item}}</input>
                   </list-item>
                </list>
             </div>
@@ -47,24 +47,24 @@
             <div class="im-key" @click="addLetter('p')"><text class="im-key-t">p</text></div>
          </div>
          <div class="im-button-container">
-            <div class="im-key" style="width: 45px;" @click="addLetter('a')"><text class="im-key-t">a</text></div>
-            <div class="im-key" style="width: 45px;" @click="addLetter('s')"><text class="im-key-t">s</text></div>
-            <div class="im-key" style="width: 45px;" @click="addLetter('d')"><text class="im-key-t">d</text></div>
-            <div class="im-key" style="width: 45px;" @click="addLetter('f')"><text class="im-key-t">f</text></div>
-            <div class="im-key" style="width: 45px;" @click="addLetter('g')"><text class="im-key-t">g</text></div>
-            <div class="im-key" style="width: 45px;" @click="addLetter('h')"><text class="im-key-t">h</text></div>
-            <div class="im-key" style="width: 45px;" @click="addLetter('j')"><text class="im-key-t">j</text></div>
-            <div class="im-key" style="width: 45px;" @click="addLetter('k')"><text class="im-key-t">k</text></div>
-            <div class="im-key" style="width: 45px;" @click="addLetter('l')"><text class="im-key-t">l</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('a')"><text class="im-key-t">a</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('s')"><text class="im-key-t">s</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('d')"><text class="im-key-t">d</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('f')"><text class="im-key-t">f</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('g')"><text class="im-key-t">g</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('h')"><text class="im-key-t">h</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('j')"><text class="im-key-t">j</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('k')"><text class="im-key-t">k</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('l')"><text class="im-key-t">l</text></div>
          </div>
          <div class="im-button-container">
-            <div class="im-key" style="width: 60px;" @click="addLetter('z')"><text class="im-key-t">z</text></div>
-            <div class="im-key" style="width: 60px;" @click="addLetter('x')"><text class="im-key-t">x</text></div>
-            <div class="im-key" style="width: 60px;" @click="addLetter('c')"><text class="im-key-t">c</text></div>
-            <div class="im-key" style="width: 60px;" @click="addLetter('v')"><text class="im-key-t">v</text></div>
-            <div class="im-key" style="width: 60px;" @click="addLetter('b')"><text class="im-key-t">b</text></div>
-            <div class="im-key" style="width: 60px;" @click="addLetter('n')"><text class="im-key-t">n</text></div>
-            <div class="im-key" style="width: 60px;" @click="addLetter('m')"><text class="im-key-t">m</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter('z')"><text class="im-key-t">z</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter('x')"><text class="im-key-t">x</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter('c')"><text class="im-key-t">c</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter('v')"><text class="im-key-t">v</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter('b')"><text class="im-key-t">b</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter('n')"><text class="im-key-t">n</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter('m')"><text class="im-key-t">m</text></div>
          </div>
       </div>
 
@@ -73,8 +73,8 @@
                show="{{ inputMethod.show.candidate }}"
                grab:swipe="candidateSwipe">
             <list-item class="im-candidate-full-root-item"
-                       style="height : {{ Math.ceil(inputMethod.candidateArr.length / 4) * 77 }};">
-               <input freeze="true" class="im-candidate-full-item" style="background-color : {{ RounderBackgroundValue.candidateBackground}}; border-radius : {{ RounderBackgroundValue.candidateRadius}}"
+                       style="height : {{ Math.ceil(inputMethod.candidateArr.length / fullCols) * 77 }};">
+               <input freeze="true" class="im-candidate-full-item" style="width : {{ fullW }} px; font-size : {{ fullFont }} px; color : #FFFFFF; background-color : {{ RounderBackgroundValue.candidateBackground}}; border-radius : {{ RounderBackgroundValue.candidateRadius}}"
                       for="{{ inputMethod.show.candidate ? inputMethod.candidateArr : [] }}"
                       value="{{ $item }}" @click="addCandidate($item)"></input>
             </list-item>
