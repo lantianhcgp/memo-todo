@@ -7,7 +7,7 @@
     </div>
     <list class="todo-list" ref="list">
         <list-item class="item" for="{{ (idx, it) in view }}" @click="onTap(it.id)" @longpress="onLong(it.id)" onlongpress="onLong(it.id)">
-            <div class="item-bg">
+            <div class="item-bg" @longpress="onLong(it.id)" onlongpress="onLong(it.id)">
                 <div class="box" if="{{ !it.d && !it.fold }}"></div>
                 <div class="box box-on" if="{{ it.d === 1 }}"><text class="box-mark">&#x2713;</text></div>
                 <div class="box box-fold" if="{{ it.fold === 1 }}"><text class="fold-mark">{{ it.d === 1 ? "" : "" }}</text></div>

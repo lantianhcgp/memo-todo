@@ -3,7 +3,7 @@
 .title { font-size: 32px; color: #FFFFFF; font-weight: bold; }
 .mode-t { font-size: 21px; color: #7A8290; }
 .preview { width: 380px; height: 124px; margin-top: 7px; margin-bottom: 7px; background-color: #111318; border-radius: 23px; justify-content: center; }
-.preview-text { font-size: 31px; color: #FFFFFF; width: 330px; margin-left: 25px; text-align: left; }
+.preview-text { font-size: 26px; color: #FFFFFF; width: 330px; margin-left: 25px; text-align: left; }
 .preview-empty { font-size: 24px; color: #8A93A6; width: 330px; margin-left: 25px; }
 .fill { width: 412px; }
 .meta-bar { height: 51px; width: 380px; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 25px; padding-right: 25px; }

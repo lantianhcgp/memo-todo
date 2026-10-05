@@ -5,7 +5,7 @@
     </div>
     <list class="note-list" ref="list" if="{{ !confirming }}">
         <list-item class="item" for="{{ (idx, it) in view }}" @click="onOpen(it.id)" @longpress="onAskDel(it.id)" onlongpress="onAskDel(it.id)">
-            <div class="item-bg">
+            <div class="item-bg" @longpress="onAskDel(it.id)" onlongpress="onAskDel(it.id)">
                 <text class="note-t">{{ it.t }}</text>
                 <text class="note-d">{{ it.d }}</text>
             </div>

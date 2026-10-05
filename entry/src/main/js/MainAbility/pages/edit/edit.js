@@ -66,7 +66,7 @@ export default {
     },
     syncView: function () {
         this.hasText = this.text !== '';
-        this.previewText = this.fit(this.text, 330, 31);
+        this.previewText = this.fit(this.text, 330, 26);
     },
     // 按可见宽度从头截断：预览区永远从第一个字符开始显示
     fit: function (s, maxW, fs) {
