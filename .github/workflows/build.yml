@@ -50,14 +50,25 @@ jobs:
       - name: Sanitize packed config.json (Lite schema)
         run: python3 scripts/clean_config_in_app.py "${{ matrix.path }}"/build/outputs/default/*.app
 
-      - name: Sign (needs certs/app.p7b)
+      # jsrsasign 概率性会签出坏签名（2026-10-05 实测：release 包用三张证书都验不过 → 表端报 30 签名验证失败，
+      # 而同链路的专注/txtreader/debug 包都验得过）。所以签完必须本地验签，不过就重签。
+      - name: Sign with self-verify retry (needs certs/app.p7b)
         run: |
           mkdir -p dist
           if [ -f certs/app.p7b ]; then
             cp -r tools/sign /tmp/sign && cd /tmp/sign
             npm install --no-audit --no-fund
             cd -
-            FORCE_P7B_BUNDLE=1 node /tmp/sign/sign-app-to-hap.js "${{ matrix.path }}"/build/outputs/default/*.app certs/app.p7b "dist/${{ matrix.project }}.hap"
+            python3 -m pip install -q asn1crypto cryptography
+            for i in 1 2 3 4 5; do
+              FORCE_P7B_BUNDLE=1 node /tmp/sign/sign-app-to-hap.js "${{ matrix.path }}"/build/outputs/default/*.app certs/app.p7b "dist/${{ matrix.project }}.hap"
+              if python3 scripts/verify_hap_sig.py "dist/${{ matrix.project }}.hap" >/dev/null 2>&1; then
+                echo "本地验签通过（第 ${i} 次签名）"
+                break
+              fi
+              echo "第 ${i} 次签名本地验签失败 → 重签"
+              if [ "$i" = "5" ]; then echo "5 次签名均未通过，终止"; exit 1; fi
+            done
           else
             echo "certs/app.p7b 不存在 → 本次只交付未签名 .app"
           fi
