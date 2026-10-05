@@ -304,6 +304,7 @@ export default {
     },
     onDestroy() {
         clearInterval(timeInterval);
+        clearTimeout(toastTimeout);
     },
     handleReplaceSearchSettings() {
         this.showToast('\u6682\u65e0\u8bbe\u7f6e', 240, 1500);
@@ -332,7 +333,7 @@ export default {
         clearTimeout(toastTimeout);
         this.toast.text = text;
         this.toast.width = width;
-        this.toast.left = (408 - this.toast.width) / 2;
+        this.toast.left = (412 - this.toast.width) / 2;
         this.toast.show = true;
         toastTimeout = setTimeout(() => {
             this.toast.show = false;

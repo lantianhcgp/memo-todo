@@ -71,7 +71,7 @@ export default {
         let id = this.menuId;
         this.closeMenu();
         common.writeMultiParams({ kind: 'todo', mode: 'edit', id: id }, function () {
-            router.push({ uri: 'pages/edit/edit' });
+            router.push({ uri: 'pages/edit/edit', params: { kind: 'todo', mode: 'edit', id: id } });
         });
     },
     menuDel: function () {
@@ -84,7 +84,7 @@ export default {
     },
     onAdd: function () {
         common.writeMultiParams({ kind: 'todo', mode: 'add' }, function () {
-            router.push({ uri: 'pages/edit/edit' });
+            router.push({ uri: 'pages/edit/edit', params: { kind: 'todo', mode: 'add' } });
         });
     },
     onNote: function () {

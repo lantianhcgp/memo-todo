@@ -41,7 +41,7 @@ export default {
     onOpen: function (id) {
         if (this.confirming) return;
         common.writeMultiParams({ kind: 'memo', mode: 'edit', id: id }, function () {
-            router.push({ uri: 'pages/edit/edit' });
+            router.push({ uri: 'pages/edit/edit', params: { kind: 'memo', mode: 'edit', id: id } });
         });
     },
     onAskDel: function (id) {
@@ -65,7 +65,7 @@ export default {
     onAdd: function () {
         if (this.confirming) return;
         common.writeMultiParams({ kind: 'memo', mode: 'add' }, function () {
-            router.push({ uri: 'pages/edit/edit' });
+            router.push({ uri: 'pages/edit/edit', params: { kind: 'memo', mode: 'add' } });
         });
     },
     onBack: function () {

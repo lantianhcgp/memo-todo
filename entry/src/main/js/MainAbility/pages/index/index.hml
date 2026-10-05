@@ -1,11 +1,12 @@
-<div class="container" @swipe="onSwipe">
+<stack class="page">
+    <div class="container" @swipe="onSwipe">
     <div class="header-bar">
         <text class="title">&#x5F85;&#x529E;</text>
         <text class="count" if="{{ pending > 0 }}">{{ pending }} &#x9879;&#x5F85;&#x5B8C;&#x6210;</text>
         <text class="count" if="{{ pending === 0 }}" >&#x5168;&#x90E8;&#x5B8C;&#x6210;</text>
     </div>
     <list class="todo-list" ref="list">
-        <list-item class="item" for="{{ (idx, it) in view }}" @click="onTap(it.id)" @longpress="onLong(it.id)">
+        <list-item class="item" for="{{ (idx, it) in view }}" @click="onTap(it.id)" grab:longpress="onLong(it.id)">
             <div class="item-bg">
                 <div class="box" if="{{ !it.d && !it.fold }}"></div>
                 <div class="box box-on" if="{{ it.d === 1 }}"><text class="box-mark">&#x2713;</text></div>
@@ -24,6 +25,7 @@
         <div class="nav-btn" @click="onAdd"><text class="nav-btn-t">+ &#x6DFB;&#x52A0;</text></div>
         <div class="nav-btn nav-btn-alt" @click="onNote"><text class="nav-btn-t">&#x5907;&#x5FD8;</text></div>
     </div>
+    </div>
     <div class="menu-mask" if="{{ menuId !== '' }}" @click="closeMenu">
         <div class="menu">
             <text class="menu-head">{{ menuText }}</text>
@@ -32,4 +34,4 @@
             <div class="menu-item" @click="closeMenu"><text class="menu-t">&#x53D6;&#x6D88;</text></div>
         </div>
     </div>
-</div>
+</stack>

@@ -82,30 +82,46 @@ export default class fs {
     }
 
     static readLargeFile(uri, callback=undefined) {
+        // 必须串行分块：并发发起时各块回调顺序不定，JSON 会被拼乱（字典 26KB=7块 正中此雷）；
+        // 且失败分支会重复回调/最后一块失败则永不回调。
         system_file.default.get({
             uri: uri,
             success: (data) => {
-                let length = data.length
-                let read_count = Math.ceil(length / 4096)
-                let temp = ""
-                for (let i = 0;i < read_count; i++) {
+                let length = data.length;
+                let read_count = Math.ceil(length / 4096);
+                let temp = "";
+                let idx = 0;
+                let done = false;
+                let step = function () {
+                    if (done) return;
+                    if (idx >= read_count) {
+                        done = true;
+                        if (callback) callback(undefined, temp);
+                        temp = null;
+                        return;
+                    }
                     system_file.default.readText({
                         uri: uri,
-                        position: i * 4096,
+                        position: idx * 4096,
                         length: 4096,
-                        success: (data) => {
-                            temp += data.text
-                            data.text = null;
-                            if (i + 1 === read_count) {
-                                if (callback) callback(undefined, temp);
-                                temp = null;
-                            }
+                        success: (d) => {
+                            temp += (d && d.text) ? d.text : "";
+                            d.text = null;
+                            idx++;
+                            step();
                         },
-                        fail: (data, code) => {
-                            if (callback) callback(code, data);
+                        fail: (d, code) => {
+                            if (idx === 0) {          // 首块就失败 = 文件不可读
+                                done = true;
+                                if (callback) callback(code, d);
+                            } else {                  // 中途失败：按已读到的内容返回
+                                idx++;
+                                step();
+                            }
                         }
-                    })
-                }
+                    });
+                };
+                step();
             },
             fail: (data, code) => {
                 if (callback) callback(code, data);

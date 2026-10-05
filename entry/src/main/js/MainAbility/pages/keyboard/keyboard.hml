@@ -6,7 +6,7 @@
          <text class="title-time">{{ timeString }}</text>
       </div>
       <div class="edit-text-container">
-         <text class="edit-text">{{ getLeftStr(typeData + inputMethod.chineseCandidateWord).str }}</text>
+         <input freeze="true" class="edit-text" value="{{ typeData + inputMethod.chineseCandidateWord }}"></input>
          <div class="edit-text-caret"></div>
       </div>
 
@@ -82,11 +82,11 @@
 
       <!--底部工具栏-->
          <div class="im-bottom-tab-container">
-            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 67px;height: 54px;margin-right: 4px;align-items: center;justify-content: center;" @click="handleReplaceSearchSettings">
+            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-right: 4px;align-items: center;justify-content: center;" @click="handleReplaceSearchSettings">
                <image style="width: 40px;height: 40px;" src="/common/image/inputMethod/icon-button-keyboard-settings.png"></image>
             </div>
-            <input style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 232px;height: 54px;" value="{{ inputMethod.keyboardType}}" @click="switchInputMethodType"></input>
-            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 67px;height: 54px;margin-left: 4px;align-items: center;justify-content: center;" @click="deleteLetter" @longpress="deleteAllLetter">
+            <input style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 200px;height: 54px;" value="{{ inputMethod.keyboardType}}" @click="switchInputMethodType"></input>
+            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-left: 4px;align-items: center;justify-content: center;" @click="deleteLetter" @longpress="deleteAllLetter">
                <image style="width: 40px;height: 40px;" src="/common/image/inputMethod/icon-button-keyboard-delete.png"></image>
             </div>
          </div>

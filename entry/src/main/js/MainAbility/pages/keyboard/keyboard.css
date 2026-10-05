@@ -319,11 +319,12 @@
 
 .edit-text {
     width: 374px;
-    height: 44px;
+    height: 48px;
     font-family: HYQiHei-65S;
     font-size: 30px;
     color: #FFFFFF;
-    text-align: right;
+    background-color: transparent;
+    border-width: 0px;
     margin-left: 16px;
 }
 

@@ -58,11 +58,11 @@ export default class utils {
 
     
     static deleteAllTimeout() {
+        if (!timeoutList) return;
         for (let name in timeoutList) {
             clearTimeout(timeoutList[name]);
             delete timeoutList[name];
         }
-        timeoutList = null;
     }
 
     

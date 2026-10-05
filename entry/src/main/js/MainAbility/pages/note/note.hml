@@ -4,7 +4,7 @@
         <text class="count">{{ count }} &#x6761;</text>
     </div>
     <list class="note-list" ref="list" if="{{ !confirming }}">
-        <list-item class="item" for="{{ (idx, it) in view }}" @click="onOpen(it.id)" @longpress="onAskDel(it.id)">
+        <list-item class="item" for="{{ (idx, it) in view }}" @click="onOpen(it.id)" grab:longpress="onAskDel(it.id)">
             <div class="item-bg">
                 <text class="note-t">{{ it.t }}</text>
                 <text class="note-d">{{ it.d }}</text>
