@@ -326,6 +326,7 @@
     background-color: transparent;
     border-width: 0px;
     margin-left: 16px;
+    text-overflow: ellipsis;
 }
 
 .edit-text-caret {

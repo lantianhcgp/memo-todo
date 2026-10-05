@@ -6,7 +6,7 @@
          <text class="title-time">{{ timeString }}</text>
       </div>
       <div class="edit-text-container">
-         <text class="edit-text">{{ getLeftStr(typeData + inputMethod.chineseCandidateWord).str }}</text>
+         <text class="edit-text">{{ typeData + inputMethod.chineseCandidateWord }}</text>
          <div class="edit-text-caret"></div>
      </div>
 
