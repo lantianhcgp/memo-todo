@@ -1,0 +1,29 @@
+<div class="container" @swipe="onSwipe">
+    <div class="header-bar">
+        <text class="title">&#x5907;&#x5FD8;</text>
+        <text class="count">{{ count }} &#x6761;</text>
+    </div>
+    <list class="note-list" ref="list" if="{{ !confirming }}">
+        <list-item class="item" for="{{ (idx, it) in view }}" @click="onOpen(it.id)" @longpress="onAskDel(it.id)">
+            <div class="item-bg">
+                <text class="note-t">{{ it.t }}</text>
+                <text class="note-d">{{ it.d }}</text>
+            </div>
+        </list-item>
+        <list-item class="item" if="{{ empty }}">
+            <div class="item-bg"><text class="empty-text">&#x6682;&#x65E0;&#x5907;&#x5FD8;&#xFF0C;&#x70B9;&#x4E0B;&#x65B9;&#x65B0;&#x5EFA;</text></div>
+        </list-item>
+        <list-item class="item tail"><div class="item-bg tail-bg"><text class="tail-t">&#x957F;&#x6309;&#x53EF;&#x5220;&#x9664;</text></div></list-item>
+    </list>
+    <div class="confirm" if="{{ confirming }}">
+        <text class="confirm-t">&#x5220;&#x9664;&#x8FD9;&#x6761;&#x5907;&#x5FD8;&#xFF1F;</text>
+        <div class="confirm-row">
+            <div class="c-btn c-no" @click="cancelDel"><text class="c-t">&#x53D6;&#x6D88;</text></div>
+            <div class="c-btn c-yes" @click="doDel"><text class="c-t">&#x5220;&#x9664;</text></div>
+        </div>
+    </div>
+    <div class="bottom-bar">
+        <div class="nav-btn nav-btn-alt" @click="onBack"><text class="nav-btn-t">&#x8FD4;&#x56DE;</text></div>
+        <div class="nav-btn" @click="onAdd"><text class="nav-btn-t">+ &#x65B0;&#x5EFA;</text></div>
+    </div>
+</div>

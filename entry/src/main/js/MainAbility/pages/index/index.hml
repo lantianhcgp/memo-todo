@@ -1,0 +1,27 @@
+<div class="container" @swipe="onSwipe">
+    <div class="header-bar">
+        <text class="title">&#x5F85;&#x529E;</text>
+        <text class="count" if="{{ pending > 0 }}">{{ pending }} &#x9879;&#x5F85;&#x5B8C;&#x6210;</text>
+        <text class="count" if="{{ pending === 0 }}" >&#x5168;&#x90E8;&#x5B8C;&#x6210;</text>
+    </div>
+    <list class="todo-list" ref="list">
+        <list-item class="item" for="{{ (idx, it) in view }}" @click="onTap(it.id)" @longpress="onLong(it.id)">
+            <div class="item-bg">
+                <div class="box" if="{{ !it.d && !it.fold }}"></div>
+                <div class="box box-on" if="{{ it.d === 1 }}"><text class="box-mark">&#x2713;</text></div>
+                <div class="box box-fold" if="{{ it.fold === 1 }}"><text class="fold-mark">{{ it.d === 1 ? "" : "" }}</text></div>
+                <text class="item-text" if="{{ !it.d && !it.fold }}">{{ it.t }}</text>
+                <text class="item-text-done" if="{{ it.d === 1 }}" >{{ it.t }}</text>
+                <text class="item-text fold-text" if="{{ it.fold === 1 }}" >{{ it.t }}</text>
+            </div>
+        </list-item>
+        <list-item class="item" if="{{ empty }}">
+            <div class="item-bg"><text class="empty-text">&#x8FD8;&#x6CA1;&#x6709;&#x5F85;&#x529E;&#xFF0C;&#x70B9;&#x4E0B;&#x65B9;&#x6DFB;&#x52A0;</text></div>
+        </list-item>
+        <list-item class="item tail"><div class="item-bg tail-bg"><text class="tail-t">&#x957F;&#x6309;&#x4E8B;&#x9879;&#x53EF;&#x7F16;&#x8F91;</text></div></list-item>
+    </list>
+    <div class="bottom-bar">
+        <div class="nav-btn" @click="onAdd"><text class="nav-btn-t">+ &#x6DFB;&#x52A0;</text></div>
+        <div class="nav-btn nav-btn-alt" @click="onNote"><text class="nav-btn-t">&#x5907;&#x5FD8;</text></div>
+    </div>
+</div>
