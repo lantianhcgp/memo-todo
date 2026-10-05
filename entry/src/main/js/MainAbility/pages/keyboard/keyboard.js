@@ -73,23 +73,15 @@ export default {
         }
         this.getTime();
         this.getBackgroundSettings();
+        common.getParams(this);
+        if (typeof this.kbInit === "string") this.typeData = this.kbInit;
         common.clean();
-        let that = this;
-        storage.get({
-            key: 'default_dict',
-            default: 'a',
-            success: function (data) {
-                that.search_type = data
-            }
-        });
         $app.getData(data => {
             if (data.searchType) {
                 this.inputMethod.keyboardType = data.searchType === 'chinese' ? inputMethod.keyboardTypeData.pinyin : inputMethod.keyboardTypeData.english;
             }
             $app.cleanData();
         });
-        
-        this.getSearchText();
     },
     getTime() {
         var getTime = () => {
@@ -118,19 +110,6 @@ export default {
             }
         });
     },
-    getSearchText() {
-        let that = this;
-        storage.get({
-            key: that.getUserSearchType(),
-            default: '',
-            success: function (data) {
-                that.typeData = data
-            },
-            fail: function () {
-                that.typeData = ''
-            }
-        });
-    },
     
     doNotSwipe(e) {
         utils.stopPropagation(e);
@@ -138,9 +117,8 @@ export default {
     },
     
     switchInputMethodType() {
-        this.saveKeyboardWord();
         this.inputMethod.candidateArr = [];
-        this.typeData = "";
+        this.inputMethod.chineseCandidateWord = "";
         this.inputMethod.menuType = "back"
         //看着这么长一坨, 实际功能实现很简单, 不做注释咯
         if (this.inputMethod.keyboardType === inputMethod.keyboardTypeData.english) {
@@ -148,7 +126,6 @@ export default {
         } else if (this.inputMethod.keyboardType === inputMethod.keyboardTypeData.pinyin) {
             this.inputMethod.keyboardType = inputMethod.keyboardTypeData.english;
         }
-        this.getSearchText();
     },
     
     keyboardReplaceCandidate() {
@@ -252,21 +229,6 @@ export default {
     handleTipsClick(e) {
         utils.stopPropagation(e);
     },
-    saveKeyboardWord() {
-        let that = this;
-        storage.get({
-            key: 'SaveKeyboardWord',
-            default: '1',
-            success: function (data) {
-                if (data == '1') {
-                    storage.set({
-                        key: that.getUserSearchType(),
-                        value: that.typeData
-                    });
-                }
-            }
-        });
-    },
     onShow() {
         if (this.$refs && this.$refs.candidate && this.$refs.candidate.rotation) {
             this.$refs.candidate.rotation();
@@ -285,7 +247,6 @@ export default {
     },
     onDestroy() {
         clearInterval(timeInterval);
-        this.saveKeyboardWord();
     },
     handleReplaceSearchSettings() {
         this.showToast('\u6682\u65e0\u8bbe\u7f6e', 240, 1500);

@@ -58,7 +58,9 @@ export default {
         });
     },
     openKeyboard: function () {
-        router.push({ uri: 'pages/keyboard/keyboard' });
+        common.writeMultiParams({ kbInit: this.text }, function () {
+            router.push({ uri: 'pages/keyboard/keyboard' });
+        });
     },
     onSave: function () {
         let t = String(this.text || '').trim();

@@ -2,21 +2,21 @@
 .header-bar { height: 86px; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 40px; padding-right: 25px; padding-top: 12px; }
 .title { font-size: 32px; color: #FFFFFF; font-weight: bold; }
 .count { font-size: 21px; color: #7A8290; }
-.todo-list { width: 100%; height: 340px; }
+.todo-list { width: 100%; height: 300px; }
 .item { height: 74px; }
 .item-bg { flex-direction: row; align-items: center; width: 100%; height: 74px; padding-left: 23px; padding-right: 23px; background-color: #111318; margin-top: 5px; border-radius: 18px; }
-.box { width: 34px; height: 34px; border-radius: 9px; border-width: 2px; border-color: #4A5261; margin-right: 18px; align-items: center; justify-content: center; }
+.box { width: 34px; height: 34px; border-radius: 9px; border-width: 2px; border-color: #7A8290; margin-right: 18px; align-items: center; justify-content: center; }
 .box-on { background-color: #1F71FF; border-color: #1F71FF; }
-.box-fold { border-width: 0px; background-color: #1A1D24; }
+.box-fold { border-width: 0px; background-color: #262B35; }
 .box-mark { font-size: 28px; color: #FFFFFF; font-weight: bold; }
-.fold-mark { font-size: 20px; color: #6B7280; }
+.fold-mark { font-size: 20px; color: #8A93A6; }
 .item-text { font-size: 28px; color: #FFFFFF; width: 330px; text-overflow: ellipsis; }
-.item-text-done { color: #5B6270; text-decoration: line-through; }
+.item-text-done { color: #8A93A6; text-decoration: line-through; }
 .fold-text { color: #7A8290; font-size: 24px; }
-.empty-text { font-size: 24px; color: #6B7280; }
+.empty-text { font-size: 24px; color: #8A93A6; }
 .tail { height: 51px; }
 .tail-bg { background-color: #000000; justify-content: center; margin-top: 0px; }
-.tail-t { font-size: 18px; color: #4A5261; }
+.tail-t { font-size: 18px; color: #7A8290; }
 .bottom-bar { height: 87px; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 21px; padding-right: 21px; }
 .nav-btn { width: 193px; height: 64px; border-radius: 32px; background-color: #1F71FF; align-items: center; justify-content: center; }
 .nav-btn-alt { background-color: #24262C; }

@@ -2,7 +2,7 @@
    <text class="boot-err" show="{{ bootErr }}">{{ bootErr }}</text>
    <div class="container" @swipe="onswipe">
       <div class="title-item">
-         <text class="title" @longpress="handleReplaceSearchSettings">&#x8f93;&#x5165;&#x5185;&#x5bb9;({{ search_type.toUpperCase() }})</text>
+         <text class="title" @longpress="handleReplaceSearchSettings">&#x8f93;&#x5165;&#x5185;&#x5bb9;</text>
          <text class="title-time">{{ timeString }}</text>
       </div>
       <div class="edit-text-container">
