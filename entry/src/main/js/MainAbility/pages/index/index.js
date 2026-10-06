@@ -63,8 +63,11 @@ export default {
                 break;
             }
         }
-        let self = this;
-        data.commit('todo', this.all, function () { self.rebuild(); });
+        // 乐观更新：先立刻刷新界面，再后台落盘。
+        // 原先等 writeText 回调才 rebuild，UI 无即时反馈时用户会连续点，
+        // 每点一次压一个全量序列化+写盘任务，队列堆积直接卡死。
+        this.rebuild();
+        data.commit('todo', this.all, null);
     },
     onLong: function (id) {
         if (id === '__fold') return;

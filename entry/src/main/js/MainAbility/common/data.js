@@ -76,7 +76,16 @@ export default class data {
     static commit(kind, list, cb) {
         let arr = list || [];
         if (arr.length > MAX_ITEMS) arr = arr.slice(0, MAX_ITEMS);
-        queue.push({ uri: URI[kind], text: JSON.stringify(arr), cb: cb });
+        const uri = URI[kind];
+        // 内存里的 list 已经是最新状态，队列中同 uri 且无回调的待写快照已过期，
+        // 丢弃它们只写最后一份，避免连续点击时任务无限堆积。
+        // 带回调的任务一律保留 —— note 删除依赖 reload 刷新列表，不能丢。
+        let kept = [];
+        for (let i = 0; i < queue.length; i++) {
+            if (queue[i].uri !== uri || queue[i].cb) kept.push(queue[i]);
+        }
+        queue = kept;
+        queue.push({ uri: uri, text: JSON.stringify(arr), cb: cb });
         pump();
     }
 
