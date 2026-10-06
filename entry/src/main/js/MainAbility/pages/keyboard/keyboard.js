@@ -29,6 +29,7 @@ export default {
             text: ""
         },
         typeData: "",
+        display: "",
         bootErr: "",
         
         kbRow1: [],
@@ -81,6 +82,7 @@ export default {
         this.getBackgroundSettings();
         common.getParams(this);
         if (typeof this.kbInit === "string") this.typeData = this.kbInit;
+        this.syncDisplay();
         common.clean();
         $app.getData(data => {
             if (data.searchType) {
@@ -144,6 +146,7 @@ export default {
         this.fullW = isPinyin ? 98 : 130;
         this.fullFont = isPinyin ? 38 : 26;
         this.fullCols = isPinyin ? 4 : 3;
+        this.syncDisplay();
     },
     
     keyboardReplaceCandidate() {
@@ -174,11 +177,13 @@ export default {
             //如果输入法在拼音界面, 添加到候选词输入内容里而非便条输入内容里
             this.inputMethod.chineseCandidateWord += text;
             this.getKeyboardPinyinCandidateData(this.inputMethod.chineseCandidateWord);
+            this.syncDisplay();
             return;
         }
         this.typeData += text;
         this.enPrefix = this.getLastWord(this.typeData);
         this.refreshEnCandidates();
+        this.syncDisplay();
     },
     
     getLastWord(t) {
@@ -203,6 +208,7 @@ export default {
             this.inputMethod.candidateArr = [];
             this.inputMethod.menuType = "back";
             if (this.inputMethod.show.candidate) this.keyboardBackMain();
+            this.syncDisplay();
             return;
         }
         this.typeData += text;
@@ -216,6 +222,7 @@ export default {
             this.inputMethod.candidateArr = [];
             this.inputMethod.menuType = "back"
         }
+        this.syncDisplay();
     },
     
     getKeyboardPinyinCandidateData(pinyin) {
@@ -234,6 +241,7 @@ export default {
             //如果输入法在拼音界面并且候选词输入内容不为空, 删除候选词输入内容而非便条内容
             this.inputMethod.chineseCandidateWord = this.inputMethod.chineseCandidateWord.substring(0, this.inputMethod.chineseCandidateWord.length - 1);
             this.getKeyboardPinyinCandidateData(this.inputMethod.chineseCandidateWord);
+            this.syncDisplay();
             return;
         }
         //用substring截取舍弃最后一位数据, 实现删除功能
@@ -248,6 +256,7 @@ export default {
         this.typeData = this.typeData.substring(0, this.typeData.length - deleteCount);
         this.enPrefix = this.getLastWord(this.typeData);
         this.refreshEnCandidates();
+        this.syncDisplay();
     },
     
     deleteAllLetter() {
@@ -256,12 +265,14 @@ export default {
             //如果输入法在拼音界面并且候选词输入内容不为空, 删除候选词输入内容而非便条内容
             this.inputMethod.chineseCandidateWord = "";
             this.getKeyboardPinyinCandidateData(this.inputMethod.chineseCandidateWord);
+            this.syncDisplay();
             return;
         }
         this.typeData = "";
         this.enPrefix = "";
         this.inputMethod.candidateArr = [];
         this.inputMethod.menuType = "back";
+        this.syncDisplay();
     },
     getLeftStr(text) {
         // 按 360px 可视宽从尾部回填：右对齐显示，避免超长时左边被裁
@@ -275,6 +286,10 @@ export default {
             out = text.charAt(i) + out;
         }
         return { str: out };
+    },
+    syncDisplay() {
+        // 顶层 data 赋值（与 timeString 同机制，已验证可刷新）
+        this.display = this.typeData + this.inputMethod.chineseCandidateWord;
     },
     handleSeeTips() {
         storage.set({
