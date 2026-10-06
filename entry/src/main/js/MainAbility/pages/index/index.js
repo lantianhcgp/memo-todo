@@ -2,6 +2,9 @@ import router from '../../common/router';
 import common from '../../common/common';
 import data from '../../common/data';
 
+let lastLongAt = 0;
+let lastFoldAt = 0;
+
 export default {
     data: {
         all: [],
@@ -44,6 +47,11 @@ export default {
     },
     onTap: function (id) {
         if (id === '__fold') {
+            // 展开后列表重排，抬手可能落到相邻 item 上触发级联 onTap（那条路径会写文件）。
+            // 折叠/展开是低频操作，500ms 内忽略重复点击。
+            let now = Date.now();
+            if (now - lastFoldAt < 500) return;
+            lastFoldAt = now;
             this.showDone = !this.showDone;
             this.rebuild();
             return;
@@ -60,6 +68,11 @@ export default {
     },
     onLong: function (id) {
         if (id === '__fold') return;
+        // @longpress 与 onlongpress 双绑 + 冒泡可能重复触发，这里防重入：
+        // 跳转是不可逆操作，重复执行会压出多个页面实例导致卡死
+        let now = Date.now();
+        if (now - lastLongAt < 700) return;
+        lastLongAt = now;
         common.writeMultiParams({ kind: 'todo', mode: 'edit', id: id }, function () {
             router.push({ uri: 'pages/edit/edit', params: { kind: 'todo', mode: 'edit', id: id } });
         });
