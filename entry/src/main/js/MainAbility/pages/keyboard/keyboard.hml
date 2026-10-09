@@ -66,38 +66,23 @@
             <div class="im-key" style="width: 51px;" @click="addLetter('n')"><text class="im-key-t">n</text></div>
             <div class="im-key" style="width: 51px;" @click="addLetter('m')"><text class="im-key-t">m</text></div>
          </div>
-         <!--数字模式：10+9+7 与字母三行同宽，直接复用行样式-->
+         <!--数字模式：数据驱动。字符只放 JS 数组，不进 @click 表达式——
+              hvigor 对 addLetter(';') 这类含特殊字符的表达式会报 00308018，
+              而模拟器解析器放行（先例：elcton code.hml 的 for+@click）-->
          <div class="im-button-container" show="{{ isNumber }}">
-            <div class="im-key" @click="addLetter('1')"><text class="im-key-t">1</text></div>
-            <div class="im-key" @click="addLetter('2')"><text class="im-key-t">2</text></div>
-            <div class="im-key" @click="addLetter('3')"><text class="im-key-t">3</text></div>
-            <div class="im-key" @click="addLetter('4')"><text class="im-key-t">4</text></div>
-            <div class="im-key" @click="addLetter('5')"><text class="im-key-t">5</text></div>
-            <div class="im-key" @click="addLetter('6')"><text class="im-key-t">6</text></div>
-            <div class="im-key" @click="addLetter('7')"><text class="im-key-t">7</text></div>
-            <div class="im-key" @click="addLetter('8')"><text class="im-key-t">8</text></div>
-            <div class="im-key" @click="addLetter('9')"><text class="im-key-t">9</text></div>
-            <div class="im-key" @click="addLetter('0')"><text class="im-key-t">0</text></div>
+            <div class="im-key" for="{{ (idx, item) in numRow1 }}" @click="addLetter(item)">
+               <text class="im-key-t">{{ item }}</text>
+            </div>
          </div>
          <div class="im-button-container" show="{{ isNumber }}">
-            <div class="im-key" style="width: 39px;" @click="addLetter('.')"><text class="im-key-t">.</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter(',')"><text class="im-key-t">,</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter('?')"><text class="im-key-t">?</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter('!')"><text class="im-key-t">!</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter(':')"><text class="im-key-t">:</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter(';')"><text class="im-key-t">;</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter('-')"><text class="im-key-t">-</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter('+')"><text class="im-key-t">+</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter('=')"><text class="im-key-t">=</text></div>
+            <div class="im-key" style="width: 39px;" for="{{ (idx, item) in numRow2 }}" @click="addLetter(item)">
+               <text class="im-key-t">{{ item }}</text>
+            </div>
          </div>
          <div class="im-button-container" show="{{ isNumber }}">
-            <div class="im-key" style="width: 51px;" @click="addLetter('/')"><text class="im-key-t">/</text></div>
-            <div class="im-key" style="width: 51px;" @click="addLetter('(')"><text class="im-key-t">(</text></div>
-            <div class="im-key" style="width: 51px;" @click="addLetter(')')"><text class="im-key-t">)</text></div>
-            <div class="im-key" style="width: 51px;" @click="addLetter('@')"><text class="im-key-t">@</text></div>
-            <div class="im-key" style="width: 51px;" @click="addLetter('#')"><text class="im-key-t">#</text></div>
-            <div class="im-key" style="width: 51px;" @click="addLetter('*')"><text class="im-key-t">*</text></div>
-            <div class="im-key" style="width: 51px;" @click="addLetter('%')"><text class="im-key-t">%</text></div>
+            <div class="im-key" style="width: 51px;" for="{{ (idx, item) in numRow3 }}" @click="addLetter(item)">
+               <text class="im-key-t">{{ item }}</text>
+            </div>
          </div>
       </div>
 

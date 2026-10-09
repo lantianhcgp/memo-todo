@@ -42,6 +42,9 @@ export default {
         fullCols: 3,
         enPrefix: "",
         isNumber: false,
+        numRow1: [],
+        numRow2: [],
+        numRow3: [],
         inputMethod: {
             chineseCandidateWord: "",
             keyboardType: "",
@@ -69,6 +72,9 @@ export default {
         im.keyboardType = inputMethod.keyboardTypeData.english;
         im.keyboardCase = inputMethod.keyboardCaseData.lower;
         this.isNumber = false;
+        this.numRow1 = "1234567890".split("");
+        this.numRow2 = ".,?!:;-+=".split("");
+        this.numRow3 = "/()@#*%".split("");
         im.keyboardLayoutData = K.lowercase;
         im.keyboardLayoutDataArr = K.lowercaseArr;
         im.candidateArr = [];
