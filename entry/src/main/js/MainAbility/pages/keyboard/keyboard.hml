@@ -96,7 +96,7 @@
             <div class="im-key" style="width: 51px;" @click="addLetter(')')"><text class="im-key-t">)</text></div>
             <div class="im-key" style="width: 51px;" @click="addLetter('@')"><text class="im-key-t">@</text></div>
             <div class="im-key" style="width: 51px;" @click="addLetter('#')"><text class="im-key-t">#</text></div>
-            <div class="im-key" style="width: 51px;" @click="addLetter('&')"><text class="im-key-t">&amp;</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter('*')"><text class="im-key-t">*</text></div>
             <div class="im-key" style="width: 51px;" @click="addLetter('%')"><text class="im-key-t">%</text></div>
          </div>
       </div>
