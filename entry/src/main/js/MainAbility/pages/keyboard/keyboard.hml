@@ -34,7 +34,7 @@
          <div class="im-sub-container" style="height : 201px;
                  flex-direction : column;" show="{{ inputMethod.show.keyboard }}">
 
-         <div class="im-button-container">
+         <div class="im-button-container" show="{{ !isNumber }}">
             <div class="im-key" @click="addLetter('q')"><text class="im-key-t">q</text></div>
             <div class="im-key" @click="addLetter('w')"><text class="im-key-t">w</text></div>
             <div class="im-key" @click="addLetter('e')"><text class="im-key-t">e</text></div>
@@ -46,7 +46,7 @@
             <div class="im-key" @click="addLetter('o')"><text class="im-key-t">o</text></div>
             <div class="im-key" @click="addLetter('p')"><text class="im-key-t">p</text></div>
          </div>
-         <div class="im-button-container">
+         <div class="im-button-container" show="{{ !isNumber }}">
             <div class="im-key" style="width: 39px;" @click="addLetter('a')"><text class="im-key-t">a</text></div>
             <div class="im-key" style="width: 39px;" @click="addLetter('s')"><text class="im-key-t">s</text></div>
             <div class="im-key" style="width: 39px;" @click="addLetter('d')"><text class="im-key-t">d</text></div>
@@ -57,7 +57,7 @@
             <div class="im-key" style="width: 39px;" @click="addLetter('k')"><text class="im-key-t">k</text></div>
             <div class="im-key" style="width: 39px;" @click="addLetter('l')"><text class="im-key-t">l</text></div>
          </div>
-         <div class="im-button-container">
+         <div class="im-button-container" show="{{ !isNumber }}">
             <div class="im-key" style="width: 51px;" @click="addLetter('z')"><text class="im-key-t">z</text></div>
             <div class="im-key" style="width: 51px;" @click="addLetter('x')"><text class="im-key-t">x</text></div>
             <div class="im-key" style="width: 51px;" @click="addLetter('c')"><text class="im-key-t">c</text></div>
@@ -65,6 +65,39 @@
             <div class="im-key" style="width: 51px;" @click="addLetter('b')"><text class="im-key-t">b</text></div>
             <div class="im-key" style="width: 51px;" @click="addLetter('n')"><text class="im-key-t">n</text></div>
             <div class="im-key" style="width: 51px;" @click="addLetter('m')"><text class="im-key-t">m</text></div>
+         </div>
+         <!--数字模式：10+9+7 与字母三行同宽，直接复用行样式-->
+         <div class="im-button-container" show="{{ isNumber }}">
+            <div class="im-key" @click="addLetter('1')"><text class="im-key-t">1</text></div>
+            <div class="im-key" @click="addLetter('2')"><text class="im-key-t">2</text></div>
+            <div class="im-key" @click="addLetter('3')"><text class="im-key-t">3</text></div>
+            <div class="im-key" @click="addLetter('4')"><text class="im-key-t">4</text></div>
+            <div class="im-key" @click="addLetter('5')"><text class="im-key-t">5</text></div>
+            <div class="im-key" @click="addLetter('6')"><text class="im-key-t">6</text></div>
+            <div class="im-key" @click="addLetter('7')"><text class="im-key-t">7</text></div>
+            <div class="im-key" @click="addLetter('8')"><text class="im-key-t">8</text></div>
+            <div class="im-key" @click="addLetter('9')"><text class="im-key-t">9</text></div>
+            <div class="im-key" @click="addLetter('0')"><text class="im-key-t">0</text></div>
+         </div>
+         <div class="im-button-container" show="{{ isNumber }}">
+            <div class="im-key" style="width: 39px;" @click="addLetter('.')"><text class="im-key-t">.</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter(',')"><text class="im-key-t">,</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('?')"><text class="im-key-t">?</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('!')"><text class="im-key-t">!</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter(':')"><text class="im-key-t">:</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter(';')"><text class="im-key-t">;</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('-')"><text class="im-key-t">-</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('+')"><text class="im-key-t">+</text></div>
+            <div class="im-key" style="width: 39px;" @click="addLetter('=')"><text class="im-key-t">=</text></div>
+         </div>
+         <div class="im-button-container" show="{{ isNumber }}">
+            <div class="im-key" style="width: 51px;" @click="addLetter('/')"><text class="im-key-t">/</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter('(')"><text class="im-key-t">(</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter(')')"><text class="im-key-t">)</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter('@')"><text class="im-key-t">@</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter('#')"><text class="im-key-t">#</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter('&')"><text class="im-key-t">&amp;</text></div>
+            <div class="im-key" style="width: 51px;" @click="addLetter('%')"><text class="im-key-t">%</text></div>
          </div>
       </div>
 

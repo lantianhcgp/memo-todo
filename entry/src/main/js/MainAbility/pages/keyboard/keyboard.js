@@ -41,6 +41,7 @@ export default {
         fullFont: 26,
         fullCols: 3,
         enPrefix: "",
+        isNumber: false,
         inputMethod: {
             chineseCandidateWord: "",
             keyboardType: "",
@@ -67,6 +68,7 @@ export default {
         var im = this.inputMethod;
         im.keyboardType = inputMethod.keyboardTypeData.english;
         im.keyboardCase = inputMethod.keyboardCaseData.lower;
+        this.isNumber = false;
         im.keyboardLayoutData = K.lowercase;
         im.keyboardLayoutDataArr = K.lowercaseArr;
         im.candidateArr = [];
@@ -137,9 +139,13 @@ export default {
         if (this.inputMethod.keyboardType === inputMethod.keyboardTypeData.english) {
             this.inputMethod.keyboardType = inputMethod.keyboardTypeData.pinyin;
         } else if (this.inputMethod.keyboardType === inputMethod.keyboardTypeData.pinyin) {
+            this.inputMethod.keyboardType = inputMethod.keyboardTypeData.number;
+        } else {
             this.inputMethod.keyboardType = inputMethod.keyboardTypeData.english;
         }
         this.enPrefix = "";
+        /* 数字模式：顶层赋值才会触发布局重建（Lite 绑定规则） */
+        this.isNumber = this.inputMethod.keyboardType === inputMethod.keyboardTypeData.number;
         var isPinyin = this.inputMethod.keyboardType === inputMethod.keyboardTypeData.pinyin;
         this.chipW = isPinyin ? 54 : 74;
         this.chipFont = isPinyin ? 38 : 24;

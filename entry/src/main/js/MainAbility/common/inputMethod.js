@@ -88,6 +88,7 @@ export default class inputMethod {
     static keyboardTypeData = {
         english: "EN",
         pinyin: "拼音",
+        number: "数字",
         symbol: "symbol"
     }
 
