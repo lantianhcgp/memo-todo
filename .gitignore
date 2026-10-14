@@ -12,3 +12,6 @@
 /.appanalyzer
 # 签名工具依赖（本地重签用，勿入库）
 tools/sign/node_modules/
+.anacheck/
+.anacheck2/
+ci_out/
