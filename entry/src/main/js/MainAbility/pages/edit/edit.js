@@ -21,13 +21,12 @@ export default {
         fixMode: '',
         fixId: '',
         saving: false,
-        pg: '',
-        bKb: '',
-        bSave: '',
-        bDel: ''
+        pg: 'pageIdle',
+        bKb: 'pressNone',
+        bSave: 'pressNone',
+        bDel: 'pressNone'
     },
     onInit: function () {
-        anim.pageIn(this, 'pg');
         // 通道A: system router(便条/词典同款)兜底; 通道B: $app 参数仓, 读后覆盖、优先生效
         let self = this;
         let sp = router.getParams();
@@ -52,6 +51,7 @@ export default {
             if (self.mode === 'edit') self.loadItem();
         });
     },
+    onReady: function () { anim.pageIn(this, 'pg'); },
     onBackPress() {
         anim.pageOut(this, 'pg', function () { router.back(); });
         return true;

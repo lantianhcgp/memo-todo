@@ -32,14 +32,14 @@ export default {
         typeData: "",
         display: "",
         bootErr: "",
-        pg: "",
+        pg: "pageIdle",
         bk: "",
-        bdn: "",
-        bBack: "",
-        bSearch: "",
-        bType: "",
-        bDel: "",
-        bSet: "",
+        bdn: "pressNone",
+        bBack: "pressNone",
+        bSearch: "pressNone",
+        bType: "pressNone",
+        bDel: "pressNone",
+        bSet: "pressNone",
         
         kbRow1: [],
         kbRow2: [],
@@ -74,6 +74,8 @@ export default {
         } catch (e) {
             this.bootErr = '\u542F\u52A8\u5931\u8D25: ' + String((e && e.message) || e);
         }
+    },
+    onReady() {
         anim.pageIn(this, 'pg');
     },
     bootInit() {

@@ -35,52 +35,52 @@
                  flex-direction : column;" show="{{ inputMethod.show.keyboard }}">
 
          <div class="im-button-container" show="{{ !isNumber }}">
-            <div class="im-key" style="animation-name: {{ bk === 'q' ? bdn : '' }};" @click="addLetter('q')"><text class="im-key-t">q</text></div>
-            <div class="im-key" style="animation-name: {{ bk === 'w' ? bdn : '' }};" @click="addLetter('w')"><text class="im-key-t">w</text></div>
-            <div class="im-key" style="animation-name: {{ bk === 'e' ? bdn : '' }};" @click="addLetter('e')"><text class="im-key-t">e</text></div>
-            <div class="im-key" style="animation-name: {{ bk === 'r' ? bdn : '' }};" @click="addLetter('r')"><text class="im-key-t">r</text></div>
-            <div class="im-key" style="animation-name: {{ bk === 't' ? bdn : '' }};" @click="addLetter('t')"><text class="im-key-t">t</text></div>
-            <div class="im-key" style="animation-name: {{ bk === 'y' ? bdn : '' }};" @click="addLetter('y')"><text class="im-key-t">y</text></div>
-            <div class="im-key" style="animation-name: {{ bk === 'u' ? bdn : '' }};" @click="addLetter('u')"><text class="im-key-t">u</text></div>
-            <div class="im-key" style="animation-name: {{ bk === 'i' ? bdn : '' }};" @click="addLetter('i')"><text class="im-key-t">i</text></div>
-            <div class="im-key" style="animation-name: {{ bk === 'o' ? bdn : '' }};" @click="addLetter('o')"><text class="im-key-t">o</text></div>
-            <div class="im-key" style="animation-name: {{ bk === 'p' ? bdn : '' }};" @click="addLetter('p')"><text class="im-key-t">p</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'q' ? bdn : 'pressNone' }};" @click="addLetter('q')"><text class="im-key-t">q</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'w' ? bdn : 'pressNone' }};" @click="addLetter('w')"><text class="im-key-t">w</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'e' ? bdn : 'pressNone' }};" @click="addLetter('e')"><text class="im-key-t">e</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'r' ? bdn : 'pressNone' }};" @click="addLetter('r')"><text class="im-key-t">r</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 't' ? bdn : 'pressNone' }};" @click="addLetter('t')"><text class="im-key-t">t</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'y' ? bdn : 'pressNone' }};" @click="addLetter('y')"><text class="im-key-t">y</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'u' ? bdn : 'pressNone' }};" @click="addLetter('u')"><text class="im-key-t">u</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'i' ? bdn : 'pressNone' }};" @click="addLetter('i')"><text class="im-key-t">i</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'o' ? bdn : 'pressNone' }};" @click="addLetter('o')"><text class="im-key-t">o</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'p' ? bdn : 'pressNone' }};" @click="addLetter('p')"><text class="im-key-t">p</text></div>
          </div>
          <div class="im-button-container" show="{{ !isNumber }}">
-            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'a' ? bdn : '' }};" @click="addLetter('a')"><text class="im-key-t">a</text></div>
-            <div class="im-key" style="width: 39px; animation-name: {{ bk === 's' ? bdn : '' }};" @click="addLetter('s')"><text class="im-key-t">s</text></div>
-            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'd' ? bdn : '' }};" @click="addLetter('d')"><text class="im-key-t">d</text></div>
-            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'f' ? bdn : '' }};" @click="addLetter('f')"><text class="im-key-t">f</text></div>
-            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'g' ? bdn : '' }};" @click="addLetter('g')"><text class="im-key-t">g</text></div>
-            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'h' ? bdn : '' }};" @click="addLetter('h')"><text class="im-key-t">h</text></div>
-            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'j' ? bdn : '' }};" @click="addLetter('j')"><text class="im-key-t">j</text></div>
-            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'k' ? bdn : '' }};" @click="addLetter('k')"><text class="im-key-t">k</text></div>
-            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'l' ? bdn : '' }};" @click="addLetter('l')"><text class="im-key-t">l</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'a' ? bdn : 'pressNone' }};" @click="addLetter('a')"><text class="im-key-t">a</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 's' ? bdn : 'pressNone' }};" @click="addLetter('s')"><text class="im-key-t">s</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'd' ? bdn : 'pressNone' }};" @click="addLetter('d')"><text class="im-key-t">d</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'f' ? bdn : 'pressNone' }};" @click="addLetter('f')"><text class="im-key-t">f</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'g' ? bdn : 'pressNone' }};" @click="addLetter('g')"><text class="im-key-t">g</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'h' ? bdn : 'pressNone' }};" @click="addLetter('h')"><text class="im-key-t">h</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'j' ? bdn : 'pressNone' }};" @click="addLetter('j')"><text class="im-key-t">j</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'k' ? bdn : 'pressNone' }};" @click="addLetter('k')"><text class="im-key-t">k</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'l' ? bdn : 'pressNone' }};" @click="addLetter('l')"><text class="im-key-t">l</text></div>
          </div>
          <div class="im-button-container" show="{{ !isNumber }}">
-            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'z' ? bdn : '' }};" @click="addLetter('z')"><text class="im-key-t">z</text></div>
-            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'x' ? bdn : '' }};" @click="addLetter('x')"><text class="im-key-t">x</text></div>
-            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'c' ? bdn : '' }};" @click="addLetter('c')"><text class="im-key-t">c</text></div>
-            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'v' ? bdn : '' }};" @click="addLetter('v')"><text class="im-key-t">v</text></div>
-            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'b' ? bdn : '' }};" @click="addLetter('b')"><text class="im-key-t">b</text></div>
-            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'n' ? bdn : '' }};" @click="addLetter('n')"><text class="im-key-t">n</text></div>
-            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'm' ? bdn : '' }};" @click="addLetter('m')"><text class="im-key-t">m</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'z' ? bdn : 'pressNone' }};" @click="addLetter('z')"><text class="im-key-t">z</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'x' ? bdn : 'pressNone' }};" @click="addLetter('x')"><text class="im-key-t">x</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'c' ? bdn : 'pressNone' }};" @click="addLetter('c')"><text class="im-key-t">c</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'v' ? bdn : 'pressNone' }};" @click="addLetter('v')"><text class="im-key-t">v</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'b' ? bdn : 'pressNone' }};" @click="addLetter('b')"><text class="im-key-t">b</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'n' ? bdn : 'pressNone' }};" @click="addLetter('n')"><text class="im-key-t">n</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'm' ? bdn : 'pressNone' }};" @click="addLetter('m')"><text class="im-key-t">m</text></div>
          </div>
          <!--数字模式：数据驱动。字符只放 JS 数组，不进 @click 表达式——
               hvigor 对 addLetter(';') 这类含特殊字符的表达式会报 00308018，
               而模拟器解析器放行（先例：elcton code.hml 的 for+@click）-->
          <div class="im-button-container" show="{{ isNumber }}">
-            <div class="im-key" style="animation-name: {{ bk === item ? bdn : '' }};" for="{{ (idx, item) in numRow1 }}" @click="addLetter(item)">
+            <div class="im-key" style="animation-name: {{ bk === item ? bdn : 'pressNone' }};" for="{{ (idx, item) in numRow1 }}" @click="addLetter(item)">
                <text class="im-key-t">{{ item }}</text>
             </div>
          </div>
          <div class="im-button-container" show="{{ isNumber }}">
-            <div class="im-key" style="width: 39px; animation-name: {{ bk === item ? bdn : '' }};" for="{{ (idx, item) in numRow2 }}" @click="addLetter(item)">
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === item ? bdn : 'pressNone' }};" for="{{ (idx, item) in numRow2 }}" @click="addLetter(item)">
                <text class="im-key-t">{{ item }}</text>
             </div>
          </div>
          <div class="im-button-container" show="{{ isNumber }}">
-            <div class="im-key" style="width: 51px; animation-name: {{ bk === item ? bdn : '' }};" for="{{ (idx, item) in numRow3 }}" @click="addLetter(item)">
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === item ? bdn : 'pressNone' }};" for="{{ (idx, item) in numRow3 }}" @click="addLetter(item)">
                <text class="im-key-t">{{ item }}</text>
             </div>
          </div>

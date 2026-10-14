@@ -14,11 +14,12 @@ export default {
         done: 0,
         empty: true,
         showDone: false,
-        pg: '',
-        bAdd: '',
-        bNote: '',
+        pg: 'pageIdle',
+        bAdd: 'pressNone',
+        bNote: 'pressNone',
     },
-    onInit: function () { anim.pageIn(this, 'pg'); this.reload(); },
+    onInit: function () { this.reload(); },
+    onReady: function () { anim.pageIn(this, 'pg'); },
     onShow: function () { this.reload(); },
     reload: function () {
         let self = this;

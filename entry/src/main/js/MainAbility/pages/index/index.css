@@ -49,3 +49,13 @@
     from { opacity: 1; transform: scale(1); }
     to { opacity: 0; transform: scale(0.94); }
 }
+
+@keyframes pressNone {
+    from { transform: scale(1); }
+    to { transform: scale(1); }
+}
+
+@keyframes pageIdle {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 1; transform: scale(1); }
+}

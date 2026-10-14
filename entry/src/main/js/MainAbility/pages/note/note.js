@@ -10,13 +10,14 @@ export default {
         empty: true,
         confirming: false,
         delId: '',
-        pg: '',
-        bBack: '',
-        bAdd: '',
-        bNo: '',
-        bYes: ''
+        pg: 'pageIdle',
+        bBack: 'pressNone',
+        bAdd: 'pressNone',
+        bNo: 'pressNone',
+        bYes: 'pressNone'
     },
-    onInit: function () { anim.pageIn(this, 'pg'); this.reload(); },
+    onInit: function () { this.reload(); },
+    onReady: function () { anim.pageIn(this, 'pg'); },
     onShow: function () { this.reload(); },
     reload: function () {
         let self = this;
