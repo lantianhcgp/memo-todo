@@ -15,7 +15,7 @@
 
       <!--候选词推荐-->
          <div class="im-sub-container" style="height : 65px; justify-content : center; align-items : center;" @swipe="doNotSwipe" show="{{ inputMethod.show.keyboard }}">
-            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-right: 2px;align-items: center;justify-content: center; animation-duration: 150ms; animation-name: {{ bBack }};" @click="keyboardReplaceCandidate">
+            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-right: 2px;align-items: center;justify-content: center; animation-duration: 250ms; animation-name: {{ bBack }};" @click="keyboardReplaceCandidate">
                <image style="width: 48px;height: 48px;"  src="{{ '/common/image/inputMethod/icon-button-keyboard-' + inputMethod.menuType + '.png'}}"></image>
             </div>
             <div class="im-candidate-list">
@@ -25,7 +25,7 @@
                   </list-item>
                </list>
             </div>
-            <div style="background-color : {{ RounderBackgroundValue.searchBackground}}; border-radius : {{ RounderBackgroundValue.searchRadius }};width: 65px;height: 54px;margin-left: 18px; align-items: center;justify-content: center; animation-duration: 150ms; animation-name: {{ bSearch }};" @click="search">
+            <div style="background-color : {{ RounderBackgroundValue.searchBackground}}; border-radius : {{ RounderBackgroundValue.searchRadius }};width: 65px;height: 54px;margin-left: 18px; align-items: center;justify-content: center; animation-duration: 250ms; animation-name: {{ bSearch }};" @click="search">
                <image style="width: 40px;height: 40px;" src="/common/image/inputMethod/icon-button-search.png"></image>
             </div>
          </div>
@@ -100,11 +100,11 @@
 
       <!--底部工具栏-->
          <div class="im-bottom-tab-container">
-            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-right: 4px;align-items: center;justify-content: center; animation-duration: 150ms; animation-name: {{ bSet }};" @click="handleReplaceSearchSettings">
+            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-right: 4px;align-items: center;justify-content: center; animation-duration: 250ms; animation-name: {{ bSet }};" @click="handleReplaceSearchSettings">
                <image style="width: 40px;height: 40px;" src="/common/image/inputMethod/icon-button-keyboard-settings.png"></image>
             </div>
-            <input style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 200px;height: 54px; animation-duration: 150ms; animation-name: {{ bType }};" value="{{ inputMethod.keyboardType}}" @click="switchInputMethodType"></input>
-            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-left: 4px;align-items: center;justify-content: center; animation-duration: 150ms; animation-name: {{ bDel }};" @click="deleteLetter" @longpress="deleteAllLetter">
+            <input style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 200px;height: 54px; animation-duration: 250ms; animation-name: {{ bType }};" value="{{ inputMethod.keyboardType}}" @click="switchInputMethodType"></input>
+            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-left: 4px;align-items: center;justify-content: center; animation-duration: 250ms; animation-name: {{ bDel }};" @click="deleteLetter" @longpress="deleteAllLetter">
                <image style="width: 40px;height: 40px;" src="/common/image/inputMethod/icon-button-keyboard-delete.png"></image>
             </div>
          </div>

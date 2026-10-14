@@ -24,8 +24,8 @@ export default class anim {
     static press(vm, field) {
         if (!vm) return;
         vm[field] = 'pressDown';
-        later(field + '_a', function () { vm[field] = 'pressUp'; }, 90);
-        later(field + '_b', function () { vm[field] = NONE; }, 340);
+        later(field + '_a', function () { vm[field] = 'pressUp'; }, 120);
+        later(field + '_b', function () { vm[field] = NONE; }, 460);
     }
 
     /* 键盘按键：bk=按下的字符，bdn=当前相位（缺省 pressNone），
@@ -34,8 +34,8 @@ export default class anim {
         if (!vm) return;
         vm.bk = ch;
         vm.bdn = 'pressDown';
-        later('kb_a', function () { vm.bdn = 'pressUp'; }, 90);
-        later('kb_b', function () { vm.bdn = NONE; vm.bk = ''; }, 340);
+        later('kb_a', function () { vm.bdn = 'pressUp'; }, 120);
+        later('kb_b', function () { vm.bdn = NONE; vm.bk = ''; }, 460);
     }
 
     /* 页面入场：onReady 里调用（初始态 pageIdle → 换名 pageIn 才能触发），
@@ -43,7 +43,7 @@ export default class anim {
     static pageIn(vm, field) {
         if (!vm) return;
         vm[field] = 'pageIn';
-        later(field + '_i', function () { vm[field] = IDLE; }, 360);
+        later(field + '_i', function () { vm[field] = IDLE; }, 520);
     }
 
     /* 页面出场：换名 pageOut，约 210ms 后执行真正的跳转；false = 重复触发被忽略 */
@@ -51,7 +51,7 @@ export default class anim {
         if (!vm) { if (cb) cb(); return true; }
         if (vm[field] === 'pageOut') return false;
         vm[field] = 'pageOut';
-        later(field + '_o', function () { if (cb) cb(); }, 210);
+        later(field + '_o', function () { if (cb) cb(); }, 300);
         return true;
     }
 

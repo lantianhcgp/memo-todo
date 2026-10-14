@@ -2,6 +2,7 @@
 .header-bar { height: 86px; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 40px; padding-right: 32px; padding-top: 12px; }
 .title { font-size: 32px; color: #FFFFFF; font-weight: bold; }
 .count { font-size: 21px; color: #7A8290; }
+.ver-mark { width: 52px; height: 36px; font-size: 22px; color: #FF6B35; text-align: center; }
 .todo-list { width: 100%; height: 252px; align-items: center; }
 .item { height: 74px; align-items: center; justify-content: center; }
 .item-bg { flex-direction: row; align-items: center; width: 380px; height: 74px; padding-left: 23px; padding-right: 23px; background-color: #111318; margin-top: 5px; border-radius: 18px; }
@@ -27,27 +28,27 @@
 
 /* ---- 动效（memo-todo 2026-10-14）：from/to 语法与腕上词典真机同款 ---- */
 .anim-page {
-    animation-duration: 240ms;
+    animation-duration: 400ms;
 }
 
 @keyframes pressDown {
-    from { transform: scale(1); }
-    to { transform: scale(0.9); }
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0.55; transform: scale(0.72); }
 }
 
 @keyframes pressUp {
-    from { transform: scale(0.9); }
-    to { transform: scale(1); }
+    from { opacity: 0.55; transform: scale(0.72); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes pageIn {
-    from { opacity: 0; transform: scale(1.05); }
+    from { opacity: 0; transform: scale(0.85); }
     to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes pageOut {
     from { opacity: 1; transform: scale(1); }
-    to { opacity: 0; transform: scale(0.94); }
+    to { opacity: 0; transform: scale(1.12); }
 }
 
 @keyframes pressNone {
