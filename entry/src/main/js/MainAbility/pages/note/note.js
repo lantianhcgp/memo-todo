@@ -1,6 +1,7 @@
 import router from '../../common/router';
 import common from '../../common/common';
 import data from '../../common/data';
+import anim from '../../common/anim';
 
 export default {
     data: {
@@ -8,9 +9,14 @@ export default {
         count: 0,
         empty: true,
         confirming: false,
-        delId: ''
+        delId: '',
+        pg: '',
+        bBack: '',
+        bAdd: '',
+        bNo: '',
+        bYes: ''
     },
-    onInit: function () { this.reload(); },
+    onInit: function () { anim.pageIn(this, 'pg'); this.reload(); },
     onShow: function () { this.reload(); },
     reload: function () {
         let self = this;
@@ -49,10 +55,12 @@ export default {
         this.confirming = true;
     },
     cancelDel: function () {
+        anim.press(this, 'bNo');
         this.confirming = false;
         this.delId = '';
     },
     doDel: function () {
+        anim.press(this, 'bYes');
         let self = this;
         data.load('memo', function (arr) {
             let next = [];
@@ -63,19 +71,21 @@ export default {
         });
     },
     onAdd: function () {
+        anim.press(this, 'bAdd');
         if (this.confirming) return;
         common.writeMultiParams({ kind: 'memo', mode: 'add' }, function () {
             router.push({ uri: 'pages/edit/edit', params: { kind: 'memo', mode: 'add' } });
         });
     },
     onBack: function () {
-        router.back();
+        anim.pageOut(this, 'pg', function () { router.back(); });
     },
     onBackPress() {
-        router.back();
+        anim.pageOut(this, 'pg', function () { router.back(); });
         return true;
     },
     onSwipe: function (e) {
-        if (e && e.direction === 'right') router.back();
-    }
+        if (e && e.direction === 'right') anim.pageOut(this, 'pg', function () { router.back(); });
+    },
+    onDestroy: function () { anim.clearAll(); }
 };

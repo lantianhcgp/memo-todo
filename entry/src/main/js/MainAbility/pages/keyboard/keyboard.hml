@@ -1,6 +1,6 @@
 <stack class="stack-container">
    <text class="boot-err" show="{{ bootErr }}">{{ bootErr }}</text>
-   <div class="container" @swipe="onswipe">
+   <div class="container anim-page" style="animation-name: {{ pg }};">
       <div class="title-item">
          <text class="title" @longpress="handleReplaceSearchSettings">&#x8f93;&#x5165;&#x5185;&#x5bb9;</text>
          <text class="title-time">{{ timeString }}</text>
@@ -15,7 +15,7 @@
 
       <!--候选词推荐-->
          <div class="im-sub-container" style="height : 65px; justify-content : center; align-items : center;" @swipe="doNotSwipe" show="{{ inputMethod.show.keyboard }}">
-            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-right: 2px;align-items: center;justify-content: center;" @click="keyboardReplaceCandidate">
+            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-right: 2px;align-items: center;justify-content: center; animation-duration: 150ms; animation-name: {{ bBack }};" @click="keyboardReplaceCandidate">
                <image style="width: 48px;height: 48px;"  src="{{ '/common/image/inputMethod/icon-button-keyboard-' + inputMethod.menuType + '.png'}}"></image>
             </div>
             <div class="im-candidate-list">
@@ -25,7 +25,7 @@
                   </list-item>
                </list>
             </div>
-            <div style="background-color : {{ RounderBackgroundValue.searchBackground}}; border-radius : {{ RounderBackgroundValue.searchRadius }};width: 65px;height: 54px;margin-left: 18px; align-items: center;justify-content: center;" @click="search">
+            <div style="background-color : {{ RounderBackgroundValue.searchBackground}}; border-radius : {{ RounderBackgroundValue.searchRadius }};width: 65px;height: 54px;margin-left: 18px; align-items: center;justify-content: center; animation-duration: 150ms; animation-name: {{ bSearch }};" @click="search">
                <image style="width: 40px;height: 40px;" src="/common/image/inputMethod/icon-button-search.png"></image>
             </div>
          </div>
@@ -35,52 +35,52 @@
                  flex-direction : column;" show="{{ inputMethod.show.keyboard }}">
 
          <div class="im-button-container" show="{{ !isNumber }}">
-            <div class="im-key" @click="addLetter('q')"><text class="im-key-t">q</text></div>
-            <div class="im-key" @click="addLetter('w')"><text class="im-key-t">w</text></div>
-            <div class="im-key" @click="addLetter('e')"><text class="im-key-t">e</text></div>
-            <div class="im-key" @click="addLetter('r')"><text class="im-key-t">r</text></div>
-            <div class="im-key" @click="addLetter('t')"><text class="im-key-t">t</text></div>
-            <div class="im-key" @click="addLetter('y')"><text class="im-key-t">y</text></div>
-            <div class="im-key" @click="addLetter('u')"><text class="im-key-t">u</text></div>
-            <div class="im-key" @click="addLetter('i')"><text class="im-key-t">i</text></div>
-            <div class="im-key" @click="addLetter('o')"><text class="im-key-t">o</text></div>
-            <div class="im-key" @click="addLetter('p')"><text class="im-key-t">p</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'q' ? bdn : '' }};" @click="addLetter('q')"><text class="im-key-t">q</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'w' ? bdn : '' }};" @click="addLetter('w')"><text class="im-key-t">w</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'e' ? bdn : '' }};" @click="addLetter('e')"><text class="im-key-t">e</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'r' ? bdn : '' }};" @click="addLetter('r')"><text class="im-key-t">r</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 't' ? bdn : '' }};" @click="addLetter('t')"><text class="im-key-t">t</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'y' ? bdn : '' }};" @click="addLetter('y')"><text class="im-key-t">y</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'u' ? bdn : '' }};" @click="addLetter('u')"><text class="im-key-t">u</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'i' ? bdn : '' }};" @click="addLetter('i')"><text class="im-key-t">i</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'o' ? bdn : '' }};" @click="addLetter('o')"><text class="im-key-t">o</text></div>
+            <div class="im-key" style="animation-name: {{ bk === 'p' ? bdn : '' }};" @click="addLetter('p')"><text class="im-key-t">p</text></div>
          </div>
          <div class="im-button-container" show="{{ !isNumber }}">
-            <div class="im-key" style="width: 39px;" @click="addLetter('a')"><text class="im-key-t">a</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter('s')"><text class="im-key-t">s</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter('d')"><text class="im-key-t">d</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter('f')"><text class="im-key-t">f</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter('g')"><text class="im-key-t">g</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter('h')"><text class="im-key-t">h</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter('j')"><text class="im-key-t">j</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter('k')"><text class="im-key-t">k</text></div>
-            <div class="im-key" style="width: 39px;" @click="addLetter('l')"><text class="im-key-t">l</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'a' ? bdn : '' }};" @click="addLetter('a')"><text class="im-key-t">a</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 's' ? bdn : '' }};" @click="addLetter('s')"><text class="im-key-t">s</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'd' ? bdn : '' }};" @click="addLetter('d')"><text class="im-key-t">d</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'f' ? bdn : '' }};" @click="addLetter('f')"><text class="im-key-t">f</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'g' ? bdn : '' }};" @click="addLetter('g')"><text class="im-key-t">g</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'h' ? bdn : '' }};" @click="addLetter('h')"><text class="im-key-t">h</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'j' ? bdn : '' }};" @click="addLetter('j')"><text class="im-key-t">j</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'k' ? bdn : '' }};" @click="addLetter('k')"><text class="im-key-t">k</text></div>
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === 'l' ? bdn : '' }};" @click="addLetter('l')"><text class="im-key-t">l</text></div>
          </div>
          <div class="im-button-container" show="{{ !isNumber }}">
-            <div class="im-key" style="width: 51px;" @click="addLetter('z')"><text class="im-key-t">z</text></div>
-            <div class="im-key" style="width: 51px;" @click="addLetter('x')"><text class="im-key-t">x</text></div>
-            <div class="im-key" style="width: 51px;" @click="addLetter('c')"><text class="im-key-t">c</text></div>
-            <div class="im-key" style="width: 51px;" @click="addLetter('v')"><text class="im-key-t">v</text></div>
-            <div class="im-key" style="width: 51px;" @click="addLetter('b')"><text class="im-key-t">b</text></div>
-            <div class="im-key" style="width: 51px;" @click="addLetter('n')"><text class="im-key-t">n</text></div>
-            <div class="im-key" style="width: 51px;" @click="addLetter('m')"><text class="im-key-t">m</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'z' ? bdn : '' }};" @click="addLetter('z')"><text class="im-key-t">z</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'x' ? bdn : '' }};" @click="addLetter('x')"><text class="im-key-t">x</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'c' ? bdn : '' }};" @click="addLetter('c')"><text class="im-key-t">c</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'v' ? bdn : '' }};" @click="addLetter('v')"><text class="im-key-t">v</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'b' ? bdn : '' }};" @click="addLetter('b')"><text class="im-key-t">b</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'n' ? bdn : '' }};" @click="addLetter('n')"><text class="im-key-t">n</text></div>
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === 'm' ? bdn : '' }};" @click="addLetter('m')"><text class="im-key-t">m</text></div>
          </div>
          <!--数字模式：数据驱动。字符只放 JS 数组，不进 @click 表达式——
               hvigor 对 addLetter(';') 这类含特殊字符的表达式会报 00308018，
               而模拟器解析器放行（先例：elcton code.hml 的 for+@click）-->
          <div class="im-button-container" show="{{ isNumber }}">
-            <div class="im-key" for="{{ (idx, item) in numRow1 }}" @click="addLetter(item)">
+            <div class="im-key" style="animation-name: {{ bk === item ? bdn : '' }};" for="{{ (idx, item) in numRow1 }}" @click="addLetter(item)">
                <text class="im-key-t">{{ item }}</text>
             </div>
          </div>
          <div class="im-button-container" show="{{ isNumber }}">
-            <div class="im-key" style="width: 39px;" for="{{ (idx, item) in numRow2 }}" @click="addLetter(item)">
+            <div class="im-key" style="width: 39px; animation-name: {{ bk === item ? bdn : '' }};" for="{{ (idx, item) in numRow2 }}" @click="addLetter(item)">
                <text class="im-key-t">{{ item }}</text>
             </div>
          </div>
          <div class="im-button-container" show="{{ isNumber }}">
-            <div class="im-key" style="width: 51px;" for="{{ (idx, item) in numRow3 }}" @click="addLetter(item)">
+            <div class="im-key" style="width: 51px; animation-name: {{ bk === item ? bdn : '' }};" for="{{ (idx, item) in numRow3 }}" @click="addLetter(item)">
                <text class="im-key-t">{{ item }}</text>
             </div>
          </div>
@@ -100,11 +100,11 @@
 
       <!--底部工具栏-->
          <div class="im-bottom-tab-container">
-            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-right: 4px;align-items: center;justify-content: center;" @click="handleReplaceSearchSettings">
+            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-right: 4px;align-items: center;justify-content: center; animation-duration: 150ms; animation-name: {{ bSet }};" @click="handleReplaceSearchSettings">
                <image style="width: 40px;height: 40px;" src="/common/image/inputMethod/icon-button-keyboard-settings.png"></image>
             </div>
-            <input style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 200px;height: 54px;" value="{{ inputMethod.keyboardType}}" @click="switchInputMethodType"></input>
-            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-left: 4px;align-items: center;justify-content: center;" @click="deleteLetter" @longpress="deleteAllLetter">
+            <input style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 200px;height: 54px; animation-duration: 150ms; animation-name: {{ bType }};" value="{{ inputMethod.keyboardType}}" @click="switchInputMethodType"></input>
+            <div style="background-color : {{ RounderBackgroundValue.background }}; border-radius : {{ RounderBackgroundValue.radius }};width: 56px;height: 54px;margin-left: 4px;align-items: center;justify-content: center; animation-duration: 150ms; animation-name: {{ bDel }};" @click="deleteLetter" @longpress="deleteAllLetter">
                <image style="width: 40px;height: 40px;" src="/common/image/inputMethod/icon-button-keyboard-delete.png"></image>
             </div>
          </div>

@@ -1,6 +1,7 @@
 import router from '../../common/router';
 import common from '../../common/common';
 import data from '../../common/data';
+import anim from '../../common/anim';
 
 let lastLongAt = 0;
 let lastFoldAt = 0;
@@ -13,8 +14,11 @@ export default {
         done: 0,
         empty: true,
         showDone: false,
+        pg: '',
+        bAdd: '',
+        bNote: '',
     },
-    onInit: function () { this.reload(); },
+    onInit: function () { anim.pageIn(this, 'pg'); this.reload(); },
     onShow: function () { this.reload(); },
     reload: function () {
         let self = this;
@@ -81,14 +85,17 @@ export default {
         });
     },
     onAdd: function () {
+        anim.press(this, 'bAdd');
         common.writeMultiParams({ kind: 'todo', mode: 'add' }, function () {
             router.push({ uri: 'pages/edit/edit', params: { kind: 'todo', mode: 'add' } });
         });
     },
     onNote: function () {
+        anim.press(this, 'bNote');
         router.push({ uri: 'pages/note/note' });
     },
     onSwipe: function (e) {
         if (e && e.direction === 'left') this.onNote();
-    }
+    },
+    onDestroy: function () { anim.clearAll(); }
 };

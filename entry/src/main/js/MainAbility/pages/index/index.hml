@@ -1,5 +1,5 @@
 <stack class="page">
-    <div class="container" @swipe="onSwipe">
+    <div class="container anim-page" @swipe="onSwipe" style="animation-name: {{ pg }};">
     <div class="header-bar">
         <text class="title">&#x5F85;&#x529E;</text>
         <text class="count" if="{{ pending > 0 }}">{{ pending }} &#x9879;&#x5F85;&#x5B8C;&#x6210;</text>
@@ -22,8 +22,8 @@
         <list-item class="item tail"><div class="item-bg tail-bg"><text class="tail-t">&#x957F;&#x6309;&#x4E8B;&#x9879;&#x53EF;&#x7F16;&#x8F91;/&#x5220;&#x9664;</text></div></list-item>
     </list>
     <div class="bottom-bar">
-        <div class="nav-btn" @click="onAdd"><text class="nav-btn-t">+ &#x6DFB;&#x52A0;</text></div>
-        <div class="nav-btn nav-btn-alt" @click="onNote"><text class="nav-btn-t">&#x5907;&#x5FD8;</text></div>
+        <div class="nav-btn" style="animation-duration: 150ms; animation-name: {{ bAdd }};" @click="onAdd"><text class="nav-btn-t">+ &#x6DFB;&#x52A0;</text></div>
+        <div class="nav-btn nav-btn-alt" style="animation-duration: 150ms; animation-name: {{ bNote }};" @click="onNote"><text class="nav-btn-t">&#x5907;&#x5FD8;</text></div>
     </div>
     </div>
 </stack>

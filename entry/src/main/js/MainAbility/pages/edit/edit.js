@@ -1,6 +1,7 @@
 import router from '../../common/router';
 import common from '../../common/common';
 import data from '../../common/data';
+import anim from '../../common/anim';
 
 export default {
     data: {
@@ -19,9 +20,14 @@ export default {
         fixKind: '',
         fixMode: '',
         fixId: '',
-        saving: false
+        saving: false,
+        pg: '',
+        bKb: '',
+        bSave: '',
+        bDel: ''
     },
     onInit: function () {
+        anim.pageIn(this, 'pg');
         // 通道A: system router(便条/词典同款)兜底; 通道B: $app 参数仓, 读后覆盖、优先生效
         let self = this;
         let sp = router.getParams();
@@ -47,7 +53,7 @@ export default {
         });
     },
     onBackPress() {
-        router.back();
+        anim.pageOut(this, 'pg', function () { router.back(); });
         return true;
     },
     onShow: function () {
@@ -104,11 +110,13 @@ export default {
         });
     },
     openKeyboard: function () {
+        anim.press(this, 'bKb');
         common.writeMultiParams({ kbInit: this.text }, function () {
             router.push({ uri: 'pages/keyboard/keyboard' });
         });
     },
     onSave: function () {
+        anim.press(this, 'bSave');
         if (this.saving) return;          // 防双击：commit 异步，二次进入会重复插入
         let t = String(this.text || '').trim();
         if (t === '') { this.msg = '\u5185\u5BB9\u4E0D\u80FD\u4E3A\u7A7A'; this.syncView(); return; }
@@ -140,24 +148,26 @@ export default {
             }
             data.commit(kind, arr, function () {
                 self.saving = false;
-                router.back();
+                anim.pageOut(self, 'pg', function () { router.back(); });
             });
         });
     },
     onRemove: function () {
+        anim.press(this, 'bDel');
         if (this.saving) return;
         let id = this.fixId || this.id;
-        if (id === '') { router.back(); return; }
+        if (id === '') { anim.pageOut(this, 'pg', function () { router.back(); }); return; }
         this.saving = true;
         let kind = this.fixKind || this.kind;
         let self = this;
         data.load(kind, function (arr) {
             let next = [];
             for (let i = 0; i < arr.length; i++) { if (arr[i].id !== id) next.push(arr[i]); }
-            data.commit(kind, next, function () { self.saving = false; router.back(); });
+            data.commit(kind, next, function () { self.saving = false; anim.pageOut(self, 'pg', function () { router.back(); }); });
         });
     },
     onSwipe: function (e) {
-        if (e && e.direction === 'right') router.back();
-    }
+        if (e && e.direction === 'right') anim.pageOut(this, 'pg', function () { router.back(); });
+    },
+    onDestroy: function () { anim.clearAll(); }
 };

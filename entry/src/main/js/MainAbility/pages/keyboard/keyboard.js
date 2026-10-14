@@ -4,6 +4,7 @@ import storage from '@system.storage';
 import vibrator from '@system.vibrator';
 import common from '../../common/common';
 import inputMethod from '../../common/inputMethod';
+import anim from '../../common/anim';
 
 
 let timeInterval
@@ -31,6 +32,14 @@ export default {
         typeData: "",
         display: "",
         bootErr: "",
+        pg: "",
+        bk: "",
+        bdn: "",
+        bBack: "",
+        bSearch: "",
+        bType: "",
+        bDel: "",
+        bSet: "",
         
         kbRow1: [],
         kbRow2: [],
@@ -65,6 +74,7 @@ export default {
         } catch (e) {
             this.bootErr = '\u542F\u52A8\u5931\u8D25: ' + String((e && e.message) || e);
         }
+        anim.pageIn(this, 'pg');
     },
     bootInit() {
         var K = inputMethod.keyboardLayoutData;
@@ -138,6 +148,7 @@ export default {
     },
     
     switchInputMethodType() {
+        anim.press(this, 'bType');
         this.inputMethod.candidateArr = [];
         this.inputMethod.chineseCandidateWord = "";
         this.inputMethod.menuType = "back"
@@ -162,6 +173,7 @@ export default {
     },
     
     keyboardReplaceCandidate() {
+        anim.press(this, 'bBack');
         if (this.inputMethod.candidateArr.length !== 0) {
             this.inputMethod.show.keyboard = false;
             this.inputMethod.show.candidate = true;
@@ -185,6 +197,7 @@ export default {
     },
     
     addLetter(text) {
+        anim.key(this, text);
         if (this.inputMethod.keyboardType === inputMethod.keyboardTypeData.pinyin) {
             //如果输入法在拼音界面, 添加到候选词输入内容里而非便条输入内容里
             this.inputMethod.chineseCandidateWord += text;
@@ -249,6 +262,7 @@ export default {
     },
     
     deleteLetter() {
+        anim.press(this, 'bDel');
         if (this.inputMethod.keyboardType === inputMethod.keyboardTypeData.pinyin && this.inputMethod.chineseCandidateWord.length !== 0) {
             //如果输入法在拼音界面并且候选词输入内容不为空, 删除候选词输入内容而非便条内容
             this.inputMethod.chineseCandidateWord = this.inputMethod.chineseCandidateWord.substring(0, this.inputMethod.chineseCandidateWord.length - 1);
@@ -272,6 +286,7 @@ export default {
     },
     
     deleteAllLetter() {
+        anim.press(this, 'bDel');
         //震动提醒用户全部删除
         if (this.inputMethod.keyboardType === inputMethod.keyboardTypeData.pinyin && this.inputMethod.chineseCandidateWord.length !== 0) {
             //如果输入法在拼音界面并且候选词输入内容不为空, 删除候选词输入内容而非便条内容
@@ -326,17 +341,21 @@ export default {
         }
     },
     onBackPress() {
-        router.back();
+        /* 键盘页禁用返回：滑动/系统返回手势一律吞掉，防误触丢失已输入内容。
+           退出只有两条显式路径：左上角返回图标、「搜索」确认。 */
         return true;
     },
     onDestroy() {
         clearInterval(timeInterval);
         clearTimeout(toastTimeout);
+        anim.clearAll();
     },
     handleReplaceSearchSettings() {
+        anim.press(this, 'bSet');
         this.showToast('\u6682\u65e0\u8bbe\u7f6e', 240, 1500);
     },
     search() {
+        anim.press(this, 'bSearch');
         if (this.toast.show == true) return;
         if (this.typeData == '') {
             this.showToast('\u5185\u5bb9\u4e0d\u53ef\u4e3a\u7a7a', 320, 2000);
@@ -350,11 +369,6 @@ export default {
     },
     getUserSearchType() {
         return this.inputMethod.keyboardType === inputMethod.keyboardTypeData.pinyin ? 'chinese' : 'english';
-    },
-    onswipe(e) {
-        if (e.direction == "right" || e.distance >= 150) {
-            router.back()
-        }
     },
     showToast(text, width, time) {
         clearTimeout(toastTimeout);

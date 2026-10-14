@@ -1,4 +1,4 @@
-<div class="container" @swipe="onSwipe">
+<div class="container anim-page" @swipe="onSwipe" style="animation-name: {{ pg }};">
     <div class="header-bar">
         <text class="title">&#x5907;&#x5FD8;</text>
         <text class="count">{{ count }} &#x6761;</text>
@@ -18,12 +18,12 @@
     <div class="confirm" if="{{ confirming }}">
         <text class="confirm-t">&#x5220;&#x9664;&#x8FD9;&#x6761;&#x5907;&#x5FD8;&#xFF1F;</text>
         <div class="confirm-row">
-            <div class="c-btn c-no" @click="cancelDel"><text class="c-t">&#x53D6;&#x6D88;</text></div>
-            <div class="c-btn c-yes" @click="doDel"><text class="c-t">&#x5220;&#x9664;</text></div>
+            <div class="c-btn c-no" style="animation-duration: 150ms; animation-name: {{ bNo }};" @click="cancelDel"><text class="c-t">&#x53D6;&#x6D88;</text></div>
+            <div class="c-btn c-yes" style="animation-duration: 150ms; animation-name: {{ bYes }};" @click="doDel"><text class="c-t">&#x5220;&#x9664;</text></div>
         </div>
     </div>
     <div class="bottom-bar">
-        <div class="nav-btn nav-btn-alt" @click="onBack"><text class="nav-btn-t">&#x8FD4;&#x56DE;</text></div>
-        <div class="nav-btn" @click="onAdd"><text class="nav-btn-t">+ &#x65B0;&#x5EFA;</text></div>
+        <div class="nav-btn nav-btn-alt" style="animation-duration: 150ms; animation-name: {{ bBack }};" @click="onBack"><text class="nav-btn-t">&#x8FD4;&#x56DE;</text></div>
+        <div class="nav-btn" style="animation-duration: 150ms; animation-name: {{ bAdd }};" @click="onAdd"><text class="nav-btn-t">+ &#x65B0;&#x5EFA;</text></div>
     </div>
 </div>

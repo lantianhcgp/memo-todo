@@ -1,4 +1,4 @@
-<div class="container" @swipe="onSwipe">
+<div class="container anim-page" @swipe="onSwipe" style="animation-name: {{ pg }};">
     <div class="header-bar">
         <text class="title">{{ kindTitle }}</text>
         <text class="mode-t">{{ modeTitle }}</text>
@@ -12,11 +12,11 @@
         <text class="msg-t" if="{{ msg !== '' }}" >{{ msg }}</text>
     </div>
     <div class="del-bar" if="{{ showDel }}">
-        <div class="del-btn" @click="onRemove"><text class="del-t">&#x5220;&#x9664;&#x8FD9;&#x6761;</text></div>
+        <div class="del-btn" style="animation-duration: 150ms; animation-name: {{ bDel }};" @click="onRemove"><text class="del-t">&#x5220;&#x9664;&#x8FD9;&#x6761;</text></div>
     </div>
     <div class="fill" style="height: {{ showDel ? 7 : 63 }}px;"></div>
     <div class="bottom-bar">
-        <div class="nav-btn nav-btn-alt" @click="openKeyboard"><text class="nav-btn-t">&#x6253;&#x5F00;&#x952E;&#x76D8;</text></div>
-        <div class="nav-btn" @click="onSave"><text class="nav-btn-t">&#x4FDD;&#x5B58;</text></div>
+        <div class="nav-btn nav-btn-alt" style="animation-duration: 150ms; animation-name: {{ bKb }};" @click="openKeyboard"><text class="nav-btn-t">&#x6253;&#x5F00;&#x952E;&#x76D8;</text></div>
+        <div class="nav-btn" style="animation-duration: 150ms; animation-name: {{ bSave }};" @click="onSave"><text class="nav-btn-t">&#x4FDD;&#x5B58;</text></div>
     </div>
 </div>
