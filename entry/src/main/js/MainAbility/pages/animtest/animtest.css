@@ -1,0 +1,102 @@
+.root {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    background-color: #101014;
+}
+
+.hdr {
+    width: 412px;
+    height: 56px;
+    font-size: 34px;
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: 12px;
+}
+
+.lane {
+    width: 412px;
+    height: 88px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.lb {
+    width: 240px;
+    height: 40px;
+    font-size: 24px;
+    color: #9AA0AA;
+    margin-left: 24px;
+}
+
+.box {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background-color: #1F71FF;
+}
+
+.ver {
+    width: 412px;
+    height: 40px;
+    font-size: 22px;
+    color: #555A66;
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* A/B/C 均无限循环：采集时长内必然可观察，不受一次性动画时序影响 */
+.a-box {
+    animation-name: aFade;
+    animation-duration: 600ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.b-box {
+    animation-name: bScale;
+    animation-duration: 600ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.c-box {
+    animation-duration: 300ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.anim-page {
+    animation-duration: 240ms;
+}
+
+@keyframes aFade {
+    from { opacity: 1; }
+    to { opacity: 0.15; }
+}
+
+@keyframes bScale {
+    from { transform: scale(1); }
+    to { transform: scale(0.5); }
+}
+
+@keyframes cSwap {
+    from { transform: scale(0.4); }
+    to { transform: scale(1); }
+}
+
+@keyframes cSwap2 {
+    from { background-color: #1F71FF; }
+    to { background-color: #FF4040; }
+}
+
+@keyframes pageIdle {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pageIn {
+    from { opacity: 0; transform: scale(1.05); }
+    to { opacity: 1; transform: scale(1); }
+}

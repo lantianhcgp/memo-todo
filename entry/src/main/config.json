@@ -34,7 +34,8 @@
           "pages/index/index",
           "pages/edit/edit",
           "pages/note/note",
-          "pages/keyboard/keyboard"
+          "pages/keyboard/keyboard",
+          "pages/animtest/animtest"
         ],
         "name": ".MainAbility"
       }

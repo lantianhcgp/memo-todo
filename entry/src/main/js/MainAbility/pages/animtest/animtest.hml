@@ -1,0 +1,25 @@
+<div class="root anim-page" style="animation-name: {{ pg }};">
+    <text class="hdr">ANIM-TEST</text>
+
+    <div class="lane">
+        <text class="lb">A class·opacity</text>
+        <div class="box a-box"></div>
+    </div>
+
+    <div class="lane">
+        <text class="lb">B class·scale</text>
+        <div class="box b-box"></div>
+    </div>
+
+    <div class="lane">
+        <text class="lb">C 换名·运行时</text>
+        <div class="box c-box" style="animation-name: {{ cName }};"></div>
+    </div>
+
+    <div class="lane">
+        <text class="lb">D JS改opacity</text>
+        <div class="box d-box" style="opacity: {{ dOp }};"></div>
+    </div>
+
+    <text class="ver">v3 diag · {{ tick }}</text>
+</div>
