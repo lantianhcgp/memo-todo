@@ -150,7 +150,6 @@ export default {
             router.push({ uri: 'pages/edit/edit', params: { kind: 'todo', mode: 'add' } });
         });
     },
-
     onDestroy: function () {
         if (tapTimer) { clearTimeout(tapTimer); tapTimer = null; }
         this.enableRotation(false);

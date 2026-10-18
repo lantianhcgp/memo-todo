@@ -19,7 +19,6 @@
 .tail { height: 51px; }
 .tail-bg { background-color: #000000; justify-content: center; margin-top: 0px; }
 .tail-t { font-size: 18px; color: #7A8290; }
-/* 底栏=elcton 真机同款参数（15%/48px高/居中）：贴底且避开屏角圆角裁切；备忘剥离后单键 50% 宽 */
 /* 圆屏：底栏 16%，单键 35% 宽（454 档 y=438 处安全区 x∈[143,311]，35% 宽刚好在内） */
 .bottom-bar { height: 16%; width: 100%; flex-direction: row; justify-content: center; align-items: center; }
 .nav-btn { width: 35%; height: 50px; border-radius: 25px; background-color: #1F71FF; align-items: center; justify-content: center; margin-left: 10px; margin-right: 10px; }
