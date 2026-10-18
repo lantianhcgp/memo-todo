@@ -1,12 +1,12 @@
-<stack class="container" on:swipe="cancel" on:touchstart="touchStart(false)" on:touchmove="touchMove" on:touchend="touchEnd">
-    <slider on:change="listenCrown" max="100" value="{{focusValue}}" min="0" ref="text"></slider>
-    <text class="text" on:longpress="pressText" style="top: {{linePos+90}};">{{prevLines}}</text>
-    <div class="text" style="width: 370px;height: 38px;top: {{linePos+38*lineWArr.length+90}};" on:longpress="pressText">
+<stack class="container" @swipe="cancel" @touchstart="touchStart(false)" @touchmove="touchMove" @touchend="touchEnd">
+    <slider @change="listenCrown" max="100" value="{{focusValue}}" min="0" ref="text"></slider>
+    <text class="text" @longpress="pressText" style="top: {{linePos+90}};">{{prevLines}}</text>
+    <div class="text" style="width: 370px;height: 38px;top: {{linePos+38*lineWArr.length+90}};" @longpress="pressText">
         <text style="line-height:38px;">{{text}}</text>
         <div class="text_cursor" style="opacity: {{showCursor||cursorSteady?1:0}};margin-left: {{text.length==0?0:-2}};margin-right: {{text.length==0?-3:-1}}"></div>
         <text style="line-height:38px">{{nextText}}</text>
     </div>
-    <text class="text" on:longpress="pressText" style="width: 370px;top: {{linePos+38*lineWArr.length+128}};">{{nextLines}}</text>
+    <text class="text" @longpress="pressText" style="width: 370px;top: {{linePos+38*lineWArr.length+128}};">{{nextLines}}</text>
     <text if="{{!prevLines&&!text&&nextText==constN&&!nextLines}}" class="text" style="height: 38px;top: {{linePos+38*lineWArr.length+90}};color: #808080;">{{prompt}}</text>
 <!--    顶部确认按钮-->
     <input @click="cancel" class="confirm" style="width: 94px;left: 35px;background-image:url('/common/keyboard/rect/cancel.png');"></input>
@@ -57,7 +57,7 @@
     <div class="alert" show="{{alertIf}}" @swipe="closeAlert" style="top: {{100+(alertShow?0:380)}};animation-name: {{alertShow?'up':'down'}};">
         <div class="alert_bar">
             <text style="font-size: 38px;font-family: {{font}};">{{showPy?'更多选项':'剪切板('+shearList.length+'/15)'}}</text>
-            <input class="alert_close" on:click="closeAlert"></input>
+            <input class="alert_close" @click="closeAlert"></input>
         </div>
         <list class="alert_list" show="{{showPy}}" ref="py">
             <list-item class="alert_smallItem" for="{{pyFullList}}">
@@ -74,7 +74,7 @@
         </list>
         <list class="alert_list" style="width: 360px;" show="{{!showPy}}" ref="shear">
             <list-item class="alert_item" for="{{shearList}}">
-                <text class="alert_shear" on:click="clickShear($item)">{{$item}}</text>
+                <text class="alert_shear" @click="clickShear($item)">{{$item}}</text>
             </list-item>
             <list-item class="alert_smallItem">
                 <text style="font-size: 30px;color: grey;">长按文字区域可复制当前行</text>
