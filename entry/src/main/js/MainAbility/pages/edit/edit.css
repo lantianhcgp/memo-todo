@@ -6,6 +6,9 @@
 .preview-text { font-size: 26px; color: #FFFFFF; width: 330px; margin-left: 25px; text-align: left; }
 .preview-empty { font-size: 24px; color: #8A93A6; width: 330px; margin-left: 25px; }
 .fill { width: 100%; }
+/* 段高精确配平（100% 加满，底栏贴底）：showDel 时 18+26+11+12+16+17=100；否则 18+26+11+28+17=100 */
+.fill-a { width: 100%; height: 16%; }
+.fill-b { width: 100%; height: 28%; }
 .meta-bar { height: 11%; width: 380px; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 25px; padding-right: 25px; }
 .meta-t { font-size: 20px; color: #8A93A6; }
 .msg-t { font-size: 20px; color: #FF9F43; }
