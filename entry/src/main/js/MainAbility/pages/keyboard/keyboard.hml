@@ -1,4 +1,5 @@
-<stack class="container" @swipe="cancel" @touchstart="touchStart(false)" @touchmove="touchMove" @touchend="touchEnd">
+<!-- 2026-10-18 真机反馈：文字区滑动会误触返回丢输入 → ban 掉 @swipe="cancel"，返回只留顶部取消键 -->
+<stack class="container" @touchstart="touchStart(false)" @touchmove="touchMove" @touchend="touchEnd">
     <slider @change="listenCrown" max="100" value="{{focusValue}}" min="0" ref="text"></slider>
     <text class="text" @longpress="pressText" style="top: {{linePos+90}};">{{prevLines}}</text>
     <div class="text" style="width: 370px;height: 38px;top: {{linePos+38*lineWArr.length+90}};" @longpress="pressText">

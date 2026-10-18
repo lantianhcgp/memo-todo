@@ -2,7 +2,6 @@
 .header-bar { height: 18%; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 40px; padding-right: 32px; padding-top: 12px; }
 .title { font-size: 32px; color: #FFFFFF; font-weight: bold; }
 .count { font-size: 21px; color: #7A8290; }
-.ver-mark { width: 52px; height: 36px; font-size: 22px; color: #FF6B35; text-align: center; }
 .todo-list { width: 100%; height: 52%; align-items: center; }
 .item { height: 74px; align-items: center; justify-content: center; }
 .item-bg { flex-direction: row; align-items: center; width: 380px; height: 74px; padding-left: 23px; padding-right: 23px; background-color: #111318; margin-top: 5px; border-radius: 18px; }

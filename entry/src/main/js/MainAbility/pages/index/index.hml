@@ -2,7 +2,7 @@
     <div class="container anim-page" @swipe="onSwipe" style="animation-name: {{ pg }};">
     <div class="header-bar">
         <text class="title">&#x5F85;&#x529E;</text>
-        <text class="ver-mark">v3</text>
+
         <text class="count" if="{{ pending > 0 }}">{{ pending }} &#x9879;&#x5F85;&#x5B8C;&#x6210;</text>
         <text class="count" if="{{ pending === 0 }}" >&#x5168;&#x90E8;&#x5B8C;&#x6210;</text>
     </div>
