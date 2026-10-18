@@ -25,7 +25,6 @@ export default {
         showDone: false,
         pg: 'pageIdle',
         bAdd: 'pressNone',
-        bNote: 'pressNone',
     },
     onInit: function () { this.reload(); },
     onReady: function () { anim.pageIn(this, 'pg'); },
@@ -150,18 +149,6 @@ export default {
         common.writeMultiParams({ kind: 'todo', mode: 'add' }, function () {
             router.push({ uri: 'pages/edit/edit', params: { kind: 'todo', mode: 'add' } });
         });
-    },
-    onNote: function () {
-        anim.press(this, 'bNote');
-        if (!navGuard()) return;
-        router.push({ uri: 'pages/note/note' });
-    },
-    onSwipe: function (e) {
-        // 真机反馈：列表滑动的水平分量误触 swipe 连发 → 导航闸节流，闸吞掉的滑动不做任何事
-        if (e && e.direction === 'left' && navGuard()) {
-            anim.press(this, 'bNote');
-            router.push({ uri: 'pages/note/note' });
-        }
     },
     onDestroy: function () {
         if (tapTimer) { clearTimeout(tapTimer); tapTimer = null; }
