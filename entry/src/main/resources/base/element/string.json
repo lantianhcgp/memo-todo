@@ -2,15 +2,15 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "memo and todo module"
+      "value": "todo module"
     },
     {
       "name": "MainAbility_desc",
-      "value": "memo and todo"
+      "value": "todo"
     },
     {
       "name": "MainAbility_label",
-      "value": "备忘待办"
+      "value": "todo"
     }
   ]
 }
