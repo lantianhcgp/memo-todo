@@ -1,16 +1,15 @@
 /*
- * 来源：crabKeyboard v1.1.5（MIT · crabKun）方屏版，移植进 memo-todo（2026-10-19）
- * 适配改动：
- *  1. grab: 前缀事件全部改裸名 @（Lite 真机 grab: 不注册，2026-10-06 实测铁律）；
- *     裸名会冒泡 → touch 层加 kbTouching 标记位 + stopPropagation 双保险防根节点重复处理
- *  2. 路由改走 memo-todo 参数仓：done 写 kbText 后 router.back()，取消不写
- *  3. 新增 loadInitText：初始文本逐字喂 input()/enter()，复用其换行/计宽/上限逻辑
- *  4. list-item 多子节点包 div（6.1.1 新链阻断）
- *  5. 删模板字符串（Lite 引擎风险）
+ * 项目名称：CrabKeyboard
+ * 项目作者：crabKun
+ * 文件用途：LiteWearable 中文输入键盘及候选词处理
+ * 当前版本：1.1.5
+ * 开源协议：MIT License
+ * 创建日期：2026.8.29
  */
 
-// 词库：flash 轻量版（单字+双字，1.14MB），全量版见 crabKeyboard 原仓库
-const dictPath='internal://app/rawfile/pinyinDictV5_flash1001';
+// 注释对应选项可切换词库，确认切换后，删除 rawfile 中的未选用词库目录才能真正减小安装包；两个目录都保留会一起打包。
+const dictPath='internal://app/rawfile/pinyinDictV5_flash1001';//轻量化词库，仅包含单字和双字词语，大小1.14 MB
+// const dictPath='internal://app/rawfile/pinyinDictV5_20260416';//全量词库，包含三字以上词语，大小3.91 MB
 
 import Vibrator from '@system.vibrator';
 import File from '@system.file';
@@ -61,7 +60,7 @@ let prefMap={};
 let prefsDirty=false;
 let kbTouching=false; //裸名事件冒泡标记：touch 从键盘区发起时置位，防根节点处理器重复处理
 
-const numOfLists=370/30;
+const numOfLists=320/30;
 let textWidth=0;
 let nextTextWidth=0;
 let nextLineWArr=[];//后续行每段的宽度，滑动下限，为优化性能新行在末尾
@@ -83,8 +82,8 @@ export default {
         allowNewline:true,// 可选：是否允许输入换行符
         keyType:0,        // 可选：默认键盘类型：0 中文，1 小写，2 大写，3 符号
 
+        //页面数据，勿动
         font:'HarmonyOSHans-Medium',
-
         keyPos:0,//键盘位置
         aniType:0,
         aniPos:0,
@@ -222,7 +221,7 @@ export default {
     showPopup(w,row,line,time=200){
         clearTimeout(timer_popup);
         this.popup.left=row*57+29*line+this.keyPos-16;
-        this.popup.top=line*60+145;
+        this.popup.top=line*60+120;
         this.popup.lowerLimit=0;
         this.popup.text=w;
         timer_popup=setTimeout(()=>{
@@ -230,7 +229,7 @@ export default {
         },time)
     },
     click(e){
-        const line=Math.floor((e.globalY-230)/60);
+        const line=Math.floor((e.globalY-205)/60);
         if (line<0||line>2||e.globalX-this.keyPos-29*line<0)return;
         const row=Math.floor((e.globalX-this.keyPos-29*line)/57);
         if (row<0||row>(this.keyType==3?12:9)-line)return;
@@ -278,7 +277,7 @@ export default {
         };
     },
     press(e){
-        const line=Math.floor((e.globalY-230)/60);
+        const line=Math.floor((e.globalY-205)/60);
         if (line<0||line>2||e.globalX-this.keyPos-29*line<0)return;
         const row=Math.floor((e.globalX-this.keyPos-29*line)/57);
         if (row<0||row>(this.keyType==3?12:9)-line)return;
@@ -357,7 +356,7 @@ export default {
     },
     pressFn(e){
         this.stopOperate();
-        let idx=Math.floor((e.globalX-10)/75);
+        let idx=Math.floor((e.globalX-31)/75);
         switch (idx){
             case 0://向左移动光标
                 this.cursorLeft();
@@ -379,7 +378,7 @@ export default {
     },
     clickFn(e){
         this.stopOperate();
-        let idx=Math.floor((e.globalX-10)/75);
+        let idx=Math.floor((e.globalX-31)/75);
         switch (idx){
             case 0://向左移动光标
                 this.cursorLeft();
@@ -695,7 +694,7 @@ export default {
         if (e&&e.stopPropagation) e.stopPropagation();
         this.stopOperate();
     },
-    touchStart(kbd,e){
+    touchStart(target,e){
         clearInterval(timer_ani);
         //如果切换动画被中断，立即完成切换
         if(this.aniPos){
@@ -704,25 +703,25 @@ export default {
                 this.keyPos=0;
                 this.aniDotPos=0;
             }else{
-                this.keyPos=this.aniPos+408;
+                this.keyPos=this.aniPos+466;
                 this.aniDotPos=100;
             };
             this.aniPos=0;
             this.aniOpacity=0;
         };
-        if (kbd&&e.direction=='up') {
+        if (target&&e.direction=='up') {
             moveType=2;
-            const line=Math.floor((e.globalY-230)/60);
+            const line=Math.floor((e.globalY-205)/60);
             if (line<0||line>2||e.globalX-this.keyPos-29*line<0)return;
             const row=Math.floor((e.globalX-this.keyPos-29*line)/57);
             if (row<0||row>(this.keyType==3?12:9)-line)return;
             clearTimeout(timer_popup);
             this.popup.left=row*57+29*line+this.keyPos-16;
-            this.popup.top=line*60+125;
-            this.popup.lowerLimit=line*60+125;
+            this.popup.top=line*60+100;
+            this.popup.lowerLimit=line*60+110;
             this.popup.text=this.getShiftText(line,row);
         }else {
-            moveType=kbd?1:0;
+            moveType=target?1:0;
             timeArr.unshift(e.timestamp);
         };
         oriX=e.globalX;
@@ -732,7 +731,7 @@ export default {
         if (moveType==2){
             this.popup.top+=e.globalY-oriY;
         }else if (moveType==1) {
-            let maxLimit=this.keyType==3?-333:-162;
+            let maxLimit=this.keyType==3?-275:-104;
             let distance=0;
             distance=e.globalX-oriX;
             if (this.keyPos>=0&&distance>0) {
@@ -745,9 +744,6 @@ export default {
                 this.keyPos+=distance;
             };
             disArr.unshift(distance);
-            timeArr.unshift(e.timestamp);
-            if(timeArr.length>4)timeArr.length=4;
-            if(disArr.length>3)disArr.length=3;
         }else {
             let distance=0;
             distance=e.globalY-oriY;
@@ -761,15 +757,15 @@ export default {
                 this.linePos+=distance;
             };
             disArr.unshift(distance);
-            timeArr.unshift(e.timestamp);
-            if(timeArr.length>4)timeArr.length=4;
-            if(disArr.length>3)disArr.length=3;
-        };
+        }
+        timeArr.unshift(e.timestamp);
+        if(timeArr.length>4)timeArr.length=4;
+        if(disArr.length>3)disArr.length=3;
         oriX=e.globalX;
         oriY=e.globalY;
     },
     touchEnd(){
-        let maxLimit=this.keyType==3?-333:-162;
+        let maxLimit=this.keyType==3?-275:-104;
         //结束时的处理
         if (moveType==2){
             this.input(this.popup.text);
@@ -812,7 +808,7 @@ export default {
             const that=this;
             let oneFrame;
             if (moveType==1) {
-                let maxLimit=this.keyType==3?-333:-162;
+                let maxLimit=this.keyType==3?-275:-104;
                 oneFrame=()=>{
                     if (that.keyPos>=0) {
                         let gap=that.keyPos;
@@ -918,7 +914,7 @@ export default {
                 this.keyPos=0;
                 this.aniDotPos=0;
             }else{
-                this.keyPos=this.aniPos+408;
+                this.keyPos=this.aniPos+466;
                 this.aniDotPos=100;
             };
             this.aniPos=0;
@@ -944,7 +940,7 @@ export default {
             if(this.aniPos>0){
                 this.keyPos=0;
             }else{
-                this.keyPos=this.aniPos+408;
+                this.keyPos=this.aniPos+466;
             };
         };
         this.aniType=(this.keyType+1)%4;
@@ -964,14 +960,14 @@ export default {
             if(this.aniPos>0){
                 this.keyPos=0;
             }else{
-                this.keyPos=this.aniPos+408;
+                this.keyPos=this.aniPos+466;
             };
         };
         this.aniType=(this.keyType+3)%4;
         this.aniPos=this.aniType==3?-741:-570;
         this.aniOpacity=0;
         this.aniDotPos=0;
-        this.move(408,100);
+        this.move(466,100);
     },
     move(target_key,target_dot){
         clearInterval(timer_ani);

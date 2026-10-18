@@ -1,10 +1,12 @@
 .container { flex-direction: column; width: 100%; height: 100%; background-color: #000000; }
-.header-bar { height: 18%; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 40px; padding-right: 32px; padding-top: 12px; }
+/* 圆屏(454档)：头栏居中防顶出圆外（elcton circle 同款），两端排布会顶圆角 */
+.header-bar { height: 18%; width: 100%; flex-direction: row; align-items: center; justify-content: center; padding-top: 12px; }
+.title { margin-right: 12px; }
 .title { font-size: 32px; color: #FFFFFF; font-weight: bold; }
 .count { font-size: 21px; color: #7A8290; }
 .todo-list { width: 100%; height: 67%; align-items: center; }
 .item { height: 74px; align-items: center; justify-content: center; }
-.item-bg { flex-direction: row; align-items: center; width: 380px; height: 74px; padding-left: 23px; padding-right: 23px; background-color: #111318; margin-top: 5px; border-radius: 18px; }
+.item-bg { flex-direction: row; align-items: center; width: 350px; height: 74px; padding-left: 23px; padding-right: 23px; background-color: #111318; margin-top: 5px; border-radius: 18px; }
 .box { width: 34px; height: 34px; border-radius: 9px; border-width: 2px; border-color: #7A8290; margin-right: 18px; align-items: center; justify-content: center; }
 .box-on { background-color: #1F71FF; border-color: #1F71FF; }
 .box-fold { border-width: 0px; background-color: #262B35; }
@@ -17,9 +19,10 @@
 .tail { height: 51px; }
 .tail-bg { background-color: #000000; justify-content: center; margin-top: 0px; }
 .tail-t { font-size: 18px; color: #7A8290; }
-/* 底栏=elcton 真机同款参数（15%/48px高/36%宽/margin10/居中）：贴底且避开 FIT3 屏角圆角裁切 */
-.bottom-bar { height: 15%; width: 100%; flex-direction: row; justify-content: center; align-items: center; }
-.nav-btn { width: 36%; height: 48px; border-radius: 24px; background-color: #1F71FF; align-items: center; justify-content: center; margin-left: 10px; margin-right: 10px; }
+/* 底栏=elcton 真机同款参数（15%/48px高/居中）：贴底且避开屏角圆角裁切；备忘剥离后单键 50% 宽 */
+/* 圆屏：底栏 16%，单键 35% 宽（454 档 y=438 处安全区 x∈[143,311]，35% 宽刚好在内） */
+.bottom-bar { height: 16%; width: 100%; flex-direction: row; justify-content: center; align-items: center; }
+.nav-btn { width: 35%; height: 50px; border-radius: 25px; background-color: #1F71FF; align-items: center; justify-content: center; margin-left: 10px; margin-right: 10px; }
 .nav-btn-alt { background-color: #24262C; }
 .nav-btn-t { font-size: 28px; color: #FFFFFF; font-weight: bold; }
 
