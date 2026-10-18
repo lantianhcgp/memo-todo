@@ -4,6 +4,7 @@ import data from '../../common/data';
 import anim from '../../common/anim';
 
 let lastFoldAt = 0;
+let lastTapAt = 0;
 // 导航闸（2026-10-18 真机反馈：划列表误触 swipe 连发 push 备忘页 → 页面实例堆积死机）
 // 所有导航入口共用：闸内再调用其他入口也不会重复放行
 let lastNavAt = 0;
@@ -77,6 +78,11 @@ export default {
             this.rebuild();
             return;
         }
+        // 2026-10-18 真机反馈：快速连点复选框崩表。200ms 节流（闸必须在 toggle 之前，
+        // 放后面会翻了数据不刷 UI 造成状态错乱）
+        let now2 = Date.now();
+        if (now2 - lastTapAt < 200) return;
+        lastTapAt = now2;
         for (let i = 0; i < this.all.length; i++) {
             if (this.all[i].id === id) {
                 this.all[i].d = this.all[i].d === 1 ? 0 : 1;
@@ -84,10 +90,27 @@ export default {
                 break;
             }
         }
-        // 乐观更新：先立刻刷新界面，再后台落盘。
-        // 原先等 writeText 回调才 rebuild，UI 无即时反馈时用户会连续点，
-        // 每点一次压一个全量序列化+写盘任务，队列堆积直接卡死。
-        this.rebuild();
+        // 原地翻转不重排：rebuild 会把打勾条目立刻挪进「已完成」组，手指下方条目
+        // 瞬间换人 → 连点落点漂移形成级联误触（用户感觉"完成又未完成"），且整页
+        // 重渲染风暴（官方 sim 实测 204ms/次）打爆 JS 堆直接崩表。
+        // 顺序重排只在 reload（进页面）与 fold 展开收起时做。
+        let v = [];
+        let pend = 0;
+        let fin = 0;
+        for (let i = 0; i < this.all.length; i++) {
+            if (this.all[i].d === 1) fin++; else pend++;
+        }
+        for (let i = 0; i < this.view.length; i++) {
+            v.push(this.view[i]);
+            // 折叠态的「已完成 N」行是字符串快照，计数变了就地刷新
+            if (!this.showDone && this.view[i].fold === 1) {
+                this.view[i].t = '\u5DF2\u5B8C\u6210 ' + fin;
+            }
+        }
+        this.view = v;      // 新数组引用触发重渲染，条目顺序不变
+        this.pending = pend;
+        this.done = fin;
+        // 落盘照旧：commit 队列对同 uri 无回调任务去重，只写最后一份
         data.commit('todo', this.all, null);
     },
     onLong: function (id) {
