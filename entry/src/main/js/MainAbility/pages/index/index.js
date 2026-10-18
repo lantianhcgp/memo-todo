@@ -4,7 +4,7 @@ import data from '../../common/data';
 import anim from '../../common/anim';
 
 let lastFoldAt = 0;
-let lastTapAt = 0;
+let tapTimer = null;   // 合并渲染定时器（连点时 UI 刷新最多 3.3 次/秒）
 // 导航闸（2026-10-18 真机反馈：划列表误触 swipe 连发 push 备忘页 → 页面实例堆积死机）
 // 所有导航入口共用：闸内再调用其他入口也不会重复放行
 let lastNavAt = 0;
@@ -93,11 +93,6 @@ export default {
             this.rebuild();
             return;
         }
-        // 2026-10-18 真机反馈：快速连点复选框崩表。200ms 节流（闸必须在 toggle 之前，
-        // 放后面会翻了数据不刷 UI 造成状态错乱）
-        let now2 = Date.now();
-        if (now2 - lastTapAt < 200) return;
-        lastTapAt = now2;
         for (let i = 0; i < this.all.length; i++) {
             if (this.all[i].id === id) {
                 this.all[i].d = this.all[i].d === 1 ? 0 : 1;
@@ -105,6 +100,21 @@ export default {
                 break;
             }
         }
+        // 落盘照旧：commit 队列对同 uri 无回调任务去重，只写最后一份
+        data.commit('todo', this.all, null);
+        // 2026-10-18 真机反馈连点卡死（二次修复）：翻数据=同步内存操作每击必生效；
+        // UI 刷新合并到 300ms 定时器 —— 真机整页重渲染实测 204ms/次，每击必刷时
+        // 渲染永远追不上点击频率，队列积压到卡死。合并后渲染频率被钳制 ≤3.3 次/秒。
+        let self = this;
+        if (!tapTimer) {
+            tapTimer = setTimeout(function () {
+                tapTimer = null;
+                self.flushTap();
+            }, 300);
+        }
+    },
+    // 合并渲染：连点期间数据已在内存最新，这里只做 UI 侧的顺序保持重绘+计数刷新
+    flushTap: function () {
         // 原地翻转不重排：rebuild 会把打勾条目立刻挪进「已完成」组，手指下方条目
         // 瞬间换人 → 连点落点漂移形成级联误触（用户感觉"完成又未完成"），且整页
         // 重渲染风暴（官方 sim 实测 204ms/次）打爆 JS 堆直接崩表。
@@ -125,8 +135,6 @@ export default {
         this.view = v;      // 新数组引用触发重渲染，条目顺序不变
         this.pending = pend;
         this.done = fin;
-        // 落盘照旧：commit 队列对同 uri 无回调任务去重，只写最后一份
-        data.commit('todo', this.all, null);
     },
     onLong: function (id) {
         if (id === '__fold') return;
@@ -155,5 +163,9 @@ export default {
             router.push({ uri: 'pages/note/note' });
         }
     },
-    onDestroy: function () { anim.clearAll(); }
+    onDestroy: function () {
+        if (tapTimer) { clearTimeout(tapTimer); tapTimer = null; }
+        this.enableRotation(false);
+        anim.clearAll();
+    }
 };
