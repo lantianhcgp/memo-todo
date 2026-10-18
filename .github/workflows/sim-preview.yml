@@ -28,7 +28,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            RID=$(gh run list -R "$GITHUB_REPOSITORY" --workflow build --branch master --limit 1 --json databaseId --jq '.[0].databaseId')
+            RID=$(gh run list -R "$GITHUB_REPOSITORY" --workflow build --branch "$GITHUB_REF_NAME" --limit 1 --json databaseId --jq '.[0].databaseId')
           else
             RID=${{ github.event.workflow_run.id }}
           fi
