@@ -3,6 +3,15 @@ import common from '../../common/common';
 import data from '../../common/data';
 import anim from '../../common/anim';
 
+// 导航闸：右滑返回连发会叠加 pageOut 动画 + 连环 back（2026-10-18 与 index 同款防卡死）
+let lastNavAt = 0;
+function navGuard(gap) {
+    let now = Date.now();
+    if (now - lastNavAt < (gap || 800)) return false;
+    lastNavAt = now;
+    return true;
+}
+
 export default {
     data: {
         kind: 'todo',
@@ -167,7 +176,7 @@ export default {
         });
     },
     onSwipe: function (e) {
-        if (e && e.direction === 'right') anim.pageOut(this, 'pg', function () { router.back(); });
+        if (e && e.direction === 'right' && navGuard()) anim.pageOut(this, 'pg', function () { router.back(); });
     },
     onDestroy: function () { anim.clearAll(); }
 };

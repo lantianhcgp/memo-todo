@@ -3,8 +3,16 @@ import common from '../../common/common';
 import data from '../../common/data';
 import anim from '../../common/anim';
 
-let lastLongAt = 0;
 let lastFoldAt = 0;
+// 导航闸（2026-10-18 真机反馈：划列表误触 swipe 连发 push 备忘页 → 页面实例堆积死机）
+// 所有导航入口共用：闸内再调用其他入口也不会重复放行
+let lastNavAt = 0;
+function navGuard(gap) {
+    let now = Date.now();
+    if (now - lastNavAt < (gap || 800)) return false;
+    lastNavAt = now;
+    return true;
+}
 
 export default {
     data: {
@@ -20,7 +28,15 @@ export default {
     },
     onInit: function () { this.reload(); },
     onReady: function () { anim.pageIn(this, 'pg'); },
-    onShow: function () { this.reload(); },
+    onShow: function () {
+        this.reload();
+        this.enableRotation(true);   // 表冠滚动（elcton 同款 list.rotation）
+    },
+    onHide: function () { this.enableRotation(false); },
+    enableRotation: function (value) {
+        var r = this.$refs.list;
+        if (r && r.rotation) r.rotation({ focus: value });
+    },
     reload: function () {
         let self = this;
         data.load('todo', function (arr) {
@@ -76,27 +92,30 @@ export default {
     },
     onLong: function (id) {
         if (id === '__fold') return;
-        // @longpress 与 onlongpress 双绑 + 冒泡可能重复触发，这里防重入：
-        // 跳转是不可逆操作，重复执行会压出多个页面实例导致卡死
-        let now = Date.now();
-        if (now - lastLongAt < 700) return;
-        lastLongAt = now;
+        // @longpress 与 onlongpress 双绑 + 冒泡可能重复触发 → 导航闸防重入
+        if (!navGuard(700)) return;
         common.writeMultiParams({ kind: 'todo', mode: 'edit', id: id }, function () {
             router.push({ uri: 'pages/edit/edit', params: { kind: 'todo', mode: 'edit', id: id } });
         });
     },
     onAdd: function () {
         anim.press(this, 'bAdd');
+        if (!navGuard()) return;
         common.writeMultiParams({ kind: 'todo', mode: 'add' }, function () {
             router.push({ uri: 'pages/edit/edit', params: { kind: 'todo', mode: 'add' } });
         });
     },
     onNote: function () {
         anim.press(this, 'bNote');
+        if (!navGuard()) return;
         router.push({ uri: 'pages/note/note' });
     },
     onSwipe: function (e) {
-        if (e && e.direction === 'left') this.onNote();
+        // 真机反馈：列表滑动的水平分量误触 swipe 连发 → 导航闸节流，闸吞掉的滑动不做任何事
+        if (e && e.direction === 'left' && navGuard()) {
+            anim.press(this, 'bNote');
+            router.push({ uri: 'pages/note/note' });
+        }
     },
     onDestroy: function () { anim.clearAll(); }
 };
