@@ -28,12 +28,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            RID=$(gh run list --workflow build --branch master --limit 1 --json databaseId --jq '.[0].databaseId')
+            RID=$(gh run list -R "$GITHUB_REPOSITORY" --workflow build --branch master --limit 1 --json databaseId --jq '.[0].databaseId')
           else
             RID=${{ github.event.workflow_run.id }}
           fi
           echo "run id: $RID"
-          gh run download "$RID" --dir built
+          gh run download "$RID" -R "$GITHUB_REPOSITORY" --dir built
 
       - name: unpack .app
         run: python3 _sim/unpack_app.py built _sim/apps
