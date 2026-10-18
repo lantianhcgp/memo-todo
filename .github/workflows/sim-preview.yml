@@ -9,6 +9,11 @@ on:
     workflows: [build]
     types: [completed]
   workflow_dispatch:
+    inputs:
+      profiles:
+        description: '渲染档位（逗号分隔，空=全部6档）：fit3,rect280x456,rect336x480 / circle390,circle454,circle466'
+        required: false
+        default: ''
 
 jobs:
   sim:
@@ -28,7 +33,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            RID=$(gh run list -R "$GITHUB_REPOSITORY" --workflow build --branch master --limit 1 --json databaseId --jq '.[0].databaseId')
+            RID=$(gh run list -R "$GITHUB_REPOSITORY" --workflow build --branch "$GITHUB_REF_NAME" --limit 1 --json databaseId --jq '.[0].databaseId')
           else
             RID=${{ github.event.workflow_run.id }}
           fi
@@ -49,6 +54,7 @@ jobs:
         working-directory: _sim
         env:
           CAPTURE_APPS: memo-todo
+          CAPTURE_PROFILES: ${{ inputs.profiles }}
         run: |
           python3 -m pip install --quiet pillow 2>/dev/null || \
             python3 -m pip install --quiet --user pillow 2>/dev/null || \
