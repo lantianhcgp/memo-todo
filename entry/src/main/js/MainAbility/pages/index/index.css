@@ -1,9 +1,9 @@
 .container { flex-direction: column; width: 100%; height: 100%; background-color: #000000; }
-.header-bar { height: 86px; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 40px; padding-right: 32px; padding-top: 12px; }
+.header-bar { height: 18%; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 40px; padding-right: 32px; padding-top: 12px; }
 .title { font-size: 32px; color: #FFFFFF; font-weight: bold; }
 .count { font-size: 21px; color: #7A8290; }
 .ver-mark { width: 52px; height: 36px; font-size: 22px; color: #FF6B35; text-align: center; }
-.todo-list { width: 100%; height: 252px; align-items: center; }
+.todo-list { width: 100%; height: 52%; align-items: center; }
 .item { height: 74px; align-items: center; justify-content: center; }
 .item-bg { flex-direction: row; align-items: center; width: 380px; height: 74px; padding-left: 23px; padding-right: 23px; background-color: #111318; margin-top: 5px; border-radius: 18px; }
 .box { width: 34px; height: 34px; border-radius: 9px; border-width: 2px; border-color: #7A8290; margin-right: 18px; align-items: center; justify-content: center; }
@@ -18,7 +18,7 @@
 .tail { height: 51px; }
 .tail-bg { background-color: #000000; justify-content: center; margin-top: 0px; }
 .tail-t { font-size: 18px; color: #7A8290; }
-.bottom-bar { height: 80px; width: 412px; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 28px; padding-right: 28px; padding-bottom: 12px; }
+.bottom-bar { height: 17%; width: 100%; flex-direction: row; align-items: center; justify-content: space-between; padding-left: 28px; padding-right: 28px; padding-bottom: 12px; }
 .nav-btn { width: 168px; height: 64px; border-radius: 32px; background-color: #1F71FF; align-items: center; justify-content: center; }
 .nav-btn-alt { background-color: #24262C; }
 .nav-btn-t { font-size: 28px; color: #FFFFFF; font-weight: bold; }
