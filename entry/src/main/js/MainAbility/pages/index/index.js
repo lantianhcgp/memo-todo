@@ -56,11 +56,25 @@ export default {
         if (fin.length > 0) {
             view = view.concat([{
                 id: '__fold',
-                t: (this.showDone ? '\u6536\u8D77' : '\u5DF2\u5B8C\u6210') + ' ' + fin.length,
+                t: (this.showDone ? '收起' : '已完成') + ' ' + fin.length,
                 fold: 1,
                 d: 0
             }]);
-            if (this.showDone) view = view.concat(fin);
+            if (this.showDone) {
+                // 2026-10-18 真机反馈：展开已完成即崩 —— 全量塞 list 一次建 200 个
+                // item 节点树打爆 JS 堆（MAX_ITEMS=100）。只展开最近 20 条 + 超限提示行。
+                if (fin.length > 20) {
+                    view = view.concat(fin.slice(0, 20));
+                    view = view.concat([{
+                        id: '__more',
+                        t: '仅显示最近 20 条，共 ' + fin.length + ' 条',
+                        fold: 1,
+                        d: 0
+                    }]);
+                } else {
+                    view = view.concat(fin);
+                }
+            }
         }
         this.view = view;
         this.pending = pend.length;
@@ -68,6 +82,7 @@ export default {
         this.empty = this.all.length === 0;
     },
     onTap: function (id) {
+        if (id === '__more') return;   // 提示行不可交互
         if (id === '__fold') {
             // 展开后列表重排，抬手可能落到相邻 item 上触发级联 onTap（那条路径会写文件）。
             // 折叠/展开是低频操作，500ms 内忽略重复点击。
